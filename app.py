@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
 import os
 
@@ -65,6 +65,7 @@ def login():
 
         if result:
             session["role"] = result[0]
+            session["username"] = username
             if result[0] == "staff":
                 return redirect("/staff")
             else:
@@ -73,10 +74,21 @@ def login():
     return render_template("login.html")
 
 # --------------------------------------------------
+# LOGOUT
+# --------------------------------------------------
+@app.route("/logout")
+def logout():
+    session.clear()  # Removes all data from the session
+    return redirect(url_for('login'))  # Redirects to the login function
+
+
+# --------------------------------------------------
 # Staff Dashboard – Add Subjects
 # --------------------------------------------------
 @app.route("/staff", methods=["GET", "POST"])
 def staff_dashboard():
+    if "role" not in session:
+        return redirect(url_for('login'))
     if request.method == "POST":
         department = "BSc IT"
         semester = request.form["semester"]
@@ -205,6 +217,25 @@ def student_view():
             timetable.append((day, time, subject))
 
     return render_template("student_view.html", timetable=timetable)
+
+
+@app.route("/view/subject")
+def subject_view():
+    return render_template("subject_view.html")
+
+@app.route("/view/staff")
+def staff_view():
+    return render_template("staff_view.html")
+
+@app.route("/view/daily")
+def daily_view():
+    return render_template("daily_view.html")
+
+@app.route("/view/monthly")
+def monthly_view():
+    return render_template("monthly_view.html")
+
+
 
 
 # Add this anywhere in app.py

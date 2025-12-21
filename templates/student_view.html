@@ -1,4 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+
 <form method="post">
+    <br />
   Semester: <input name="semester" required>
   <button>View Timetable</button>
 </form>
@@ -55,3 +60,5 @@ Reference data
 {% else %}
 <p>No timetable available.</p>
 {% endif %}
+
+{% endblock %}
