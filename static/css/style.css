@@ -1,0 +1,78 @@
+/* body {
+  background: #f0f2f5;
+  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.box {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  width: 300px;
+} */
+
+
+body {
+    /* Set the background image */
+    /* You need to replace 'your_background_image.jpg' with the actual path to your image file */
+    background-image: url('');
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    
+    /* Ensure the body takes up at least the height of the viewport */
+    min-height: 100vh;
+    margin: 0; /* Remove default body margin */
+    position: relative; /* Essential for positioning the child form-container absolutely */
+}
+
+.form-container {
+    /* Position the form absolutely within the relative body */
+    position: absolute;
+    top: 20px; /* Distance from the top edge */
+    right: 20px; /* Distance from the right edge */
+    padding: 20px;
+    width: 250px; /* Give the form a set width */
+    /* Add a semi-transparent background so text is readable against the image */
+    background: rgba(255, 255, 255, 0.9); 
+    border-radius: 8px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+/* Style the labels to stack vertically with inputs */
+label {
+    display: block;
+    margin-bottom: 5px; /* Space between label and input */
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style the input fields */
+input {
+    display: block;
+    width: 100%; /* Make inputs fill their container width */
+    padding: 10px;
+    margin-bottom: 15px; /* Space between input and next label/button */
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+}
+
+/* Style the button */
+button {
+    width: 100%; /* Make button full width for better usability */
+    padding: 12px;
+    background-color: #007bff; /* A nice blue color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

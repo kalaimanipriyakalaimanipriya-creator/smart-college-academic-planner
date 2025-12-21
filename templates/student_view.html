@@ -1,0 +1,57 @@
+<form method="post">
+  Semester: <input name="semester" required>
+  <button>View Timetable</button>
+</form>
+
+test
+{% if timetable %}
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Day</th>
+        <th>Time</th>
+        <th>Subject</th>
+    </tr>
+
+    {% for row in timetable %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No timetable available.</p>
+{% endif %}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+Reference data
+
+{% if timetable %}
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Day</th>
+        <th>Time</th>
+        <th>Subject</th>
+    </tr>
+
+    {% for row in timetable %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No timetable available.</p>
+{% endif %}
