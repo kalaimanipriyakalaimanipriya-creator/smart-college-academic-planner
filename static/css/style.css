@@ -76,3 +76,19 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.alert.error {
+    color: red;
+    background: #ffe6e6;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.alert.success {
+    color: green;
+    background: #e6ffe6;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}

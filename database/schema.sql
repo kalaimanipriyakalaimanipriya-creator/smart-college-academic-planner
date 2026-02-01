@@ -22,3 +22,14 @@ CREATE TABLE IF NOT EXISTS timetable (
     period INTEGER,
     subject_name TEXT
 );
+
+CREATE TABLE IF NOT EXISTS staff (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT,
+    username TEXT UNIQUE,
+    password TEXT,
+    department TEXT,
+    designation TEXT
+);
+
