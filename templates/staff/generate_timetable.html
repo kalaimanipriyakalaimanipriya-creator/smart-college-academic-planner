@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+
 <script>
 function validateForm() {
     let semester = document.getElementById("semester").value.trim();
@@ -14,7 +15,7 @@ function validateForm() {
 }
 </script>
 
-<form method="post">
+<form method="post" onsubmit="return validateForm()">
   <br />
   Semester:
   <select name="semester" id="semester">
@@ -25,7 +26,7 @@ function validateForm() {
         
         <option value="4">4</option>
         <option value="5">5</option>
-        <option value="6">6</option>
+        <option value="">6</option>
     
     </select>
 
@@ -38,42 +39,10 @@ function validateForm() {
     </select>
     <br><br>
 
-  <button>View Timetable</button>
+  <button>Generate Timetable</button>
 </form>
 
 <br />
 <br />
 <br />
 <br />
-
-{% if grid %}
-<table border="1" cellpadding="8">
-    <tr>
-        <th>DAY / TIME</th>
-        {% for t in time_map.values() %}
-            <th>{{ t }}</th>
-        {% endfor %}
-    </tr>
-
-    {% for day, periods in grid.items() %}
-    <tr>
-        <th>{{ day }}</th>
-        {% for subject in periods.values() %}
-            <td>{{ subject if subject else "-" }}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-<p>No timetable available.</p>
-{% endif %}
-
-<br />
-
-<br />
-<br />
-<br />
-<br />
-
-
-{% endblock %}

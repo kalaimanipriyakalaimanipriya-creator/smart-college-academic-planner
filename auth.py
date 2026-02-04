@@ -4,32 +4,32 @@ from utils.security import verify_password
 
 def auth_routes(app):
 
-    @app.route("/academic-planner/v1/login", methods=["GET", "POST"])
-    def login_v1():
-        user = request.form["username"];
-        pwd  = request.form["password"];
+    # @app.route("/academic-planner/v1/login", methods=["GET", "POST"])
+    # def login_v1():
+    #     user = request.form["username"];
+    #     pwd  = request.form["password"];
         
-        if request.method == "POST":
-            user = query_db(
-                "SELECT role, password FROM users WHERE username=?",
-                (request.form["username"],),
-                one=True
-            )
+    #     if request.method == "POST":
+    #         user = query_db(
+    #             "SELECT role, password FROM users WHERE username=?",
+    #             (request.form["username"],),
+    #             one=True
+    #         )
 
-        if user and verify_password(user[1], request.form["password"]):
-            session["username"] = request.form["username"]
-            session["role"] = user[0]
+    #     if user and verify_password(user[1], request.form["password"]):
+    #         session["username"] = request.form["username"]
+    #         session["role"] = user[0]
 
-            return redirect("/staff" if user[0] == "staff" else "/student")
+    #         return redirect("/staff" if user[0] == "staff" else "/student")
 
-        # ❌ login failed
-        return render_template(
-            "staff/staff_login.html",
-            error="Invalid username or password"
-        )
+    #     # ❌ login failed
+    #     return render_template(
+    #         "staff/staff_login.html",
+    #         error="Invalid username or password"
+    #     )
 
-        # GET request
-        return render_template("staff/staff_login.html")
+    #     # GET request
+    #     return render_template("staff/staff_login.html")
 
     @app.route("/academic-planner/login", methods=["GET", "POST"])
     def login():
@@ -46,9 +46,13 @@ def auth_routes(app):
             print("PASSWORD CHECK:", verify_password(user["password"], password))
 
             if user and verify_password(user["password"], password):
+                session.clear()         
+                print("SESSION l-50 LOGIN:", dict(session))
+       
                 session["username"] = username
-                # session["role"] = user["role"]
-
+                session["role"] = user["role"]     # optional but good
+                
+                print("SESSION AFTER LOGIN:", dict(session))
                 return redirect("/staff" if user["role"] == "staff" else "/student")
 
             else:

@@ -3,42 +3,44 @@ from db import query_db
 
 def timetable_routes(app):
 
-    @app.route("/generate/v1/<int:semester>")
-    def generate_timetable_v1(semester):
-        department = "BSc IT"
-        days = ["Day1", "Day2", "Day3", "Day4", "Day5"]
+    # @app.route("/generate/v1/<int:semester>")
+    # def generate_timetable_v1(semester):
+    #     department = "BSc IT"
+    #     days = ["Day1", "Day2", "Day3", "Day4", "Day5"]
 
-        query_db(
-            "DELETE FROM timetable WHERE department=? AND semester=?",
-            (department, semester)
-        )
+    #     query_db(
+    #         "DELETE FROM timetable WHERE department=? AND semester=?",
+    #         (department, semester)
+    #     )
 
-        subjects = query_db("""
-            SELECT subject_name, subject_type, hours_per_week
-            FROM subjects WHERE department=? AND semester=?
-        """, (department, semester))
+    #     subjects = query_db("""
+    #         SELECT subject_name, subject_type, hours_per_week
+    #         FROM subjects WHERE department=? AND semester=?
+    #     """, (department, semester))
 
-        period, day = 1, 0
-        for subject, s_type, hours in subjects:
-            repeat = 2 if s_type == "lab" else int(hours)
-            for _ in range(repeat):
-                query_db(
-                    "INSERT INTO timetable VALUES (NULL,            ?,?,?,?,?)",
-                    (department, semester, days[day], period, subject)
-                )
-                period += 1
-                if period > 5:
-                    period, day = 1, day + 1
+    #     period, day = 1, 0
+    #     for subject, s_type, hours in subjects:
+    #         repeat = 2 if s_type == "lab" else int(hours)
+    #         for _ in range(repeat):
+    #             query_db(
+    #                 "INSERT INTO timetable VALUES (NULL,            ?,?,?,?,?)",
+    #                 (department, semester, days[day], period, subject)
+    #             )
+    #             period += 1
+    #             if period > 5:
+    #                 period, day = 1, day + 1
 
-        return redirect("/student")
+    #     return redirect("/student")
     
-    @app.route("/generate/<int:semester>")
-    def generate_timetable(semester):
-        department = "BSc IT"
-        days = ["Day-1", "Day-2", "Day-3", "Day-4", "Day-5", "Day-6"]
+    @app.route("/generate/<int:semester>/<string:department>")
+    def generate_timetable(semester, department):
+        print("generate_timetable - ENTRY")
+        # department = "BSc IT"
+        days = ["Day-1", "Day-2", "Day-3", "Day-4", "Day-5"]
         max_periods = 5
 
         # Clear old timetable
+        print("Clear old timetable - ENTRY")
         query_db(
             "DELETE FROM timetable WHERE department=? AND semester=?",
             (department, semester)
@@ -67,6 +69,8 @@ def timetable_routes(app):
             else:
                 theory.append((name, int(hours)))
 
+        print("PRIOR TO ALL STEPS - ENTRY")
+        
         # -------------------------------
         # Step 1: Place LABS
         # -------------------------------
@@ -86,24 +90,55 @@ def timetable_routes(app):
         # -------------------------------
         # Step 2: Place THEORY subjects
         # -------------------------------
+        # for subject, hours in theory:
+        #     day_pointer = 0
+        #     while hours > 0 and day_pointer < len(days):
+        #         day = days[day_pointer]
+
+        #         # Avoid repeating same subject on same day
+        #         if subject in timetable[day].values():
+        #             day_pointer += 1
+        #             continue
+
+        #         for p in range(1, max_periods + 1):
+        #             if timetable[day][p] is None:
+        #                 timetable[day][p] = subject
+        #                 hours -= 1
+        #                 break
+
+        #         day_pointer += 1
+        
+        print("STEP1 SUCCESSFULLY")
+        
+        # -------------------------------
+        # Step 2: Place THEORY (6-Day Version)
+        # -------------------------------
         for subject, hours in theory:
-            day_pointer = 0
-            while hours > 0 and day_pointer < len(days):
-                day = days[day_pointer]
-
-                # Avoid repeating same subject on same day
-                if subject in timetable[day].values():
-                    day_pointer += 1
-                    continue
-
-                for p in range(1, max_periods + 1):
-                    if timetable[day][p] is None:
-                        timetable[day][p] = subject
-                        hours -= 1
+            placed = 0
+            # The while loop ensures we keep trying until all 'hours' are placed
+            while placed < hours:
+                starting_placed = placed
+                for day in days:
+                    if placed >= hours: 
                         break
+                    
+                    # Rule: Don't repeat the same subject on the same day order
+                    if subject in timetable[day].values():
+                        continue
 
-                day_pointer += 1
+                    for p in range(1, max_periods + 1):
+                        if timetable[day][p] is None:
+                            timetable[day][p] = subject
+                            placed += 1
+                            break
+                
+                # Safety: If a full cycle through 6 days placed nothing, stop to avoid infinite loop
+                if placed == starting_placed:
+                    break
 
+
+        print("STEP2 SUCCESSFULLY")
+        
         # -------------------------------
         # Step 3: Save to DB
         # -------------------------------
@@ -115,6 +150,7 @@ def timetable_routes(app):
                         "INSERT INTO timetable VALUES (NULL,?,?,?,?,?)",
                         (department, semester, day, period, subject)
                     )
-
+        print("tIMETABLE GENERATED SUCCESSFULLY")
+        
         return redirect("/student")
 

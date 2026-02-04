@@ -1,19 +1,23 @@
-<h2>Weekly Timetable</h2>
 
-<table border="1" cellpadding="10">
-  <tr>
-    <th>Day / Period</th>
-    {% for p in periods %}
-      <th>{{ p }}</th>
-    {% endfor %}
-  </tr>
 
-  {% for day, pdata in grid.items() %}
-  <tr>
-    <th>{{ day }}</th>
-    {% for p in periods %}
-      <td> {{ pdata[p] if pdata[p] else "-" }} </td>
+{% if grid %}
+<table border="1" cellpadding="8">
+    <tr>
+        <th>DAY / TIME</th>
+        {% for t in time_map.values() %}
+            <th>{{ t }}</th>
+        {% endfor %}
+    </tr>
+
+    {% for day, periods in grid.items() %}
+    <tr>
+        <th>{{ day }}</th>
+        {% for subject in periods.values() %}
+            <td>{{ subject if subject else "-" }}</td>
+        {% endfor %}
+    </tr>
     {% endfor %}
-  </tr>
-  {% endfor %}
 </table>
+{% else %}
+<p>No timetable available.</p>
+{% endif %}

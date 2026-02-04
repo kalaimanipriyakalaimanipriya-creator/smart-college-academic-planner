@@ -56,6 +56,42 @@ def staff_routes(app):
 
         return render_template("staff/staff_register.html")
 
+    
+
+    # @app.route("/staff/generate/timetable", methods=['GET', 'POST'])
+    # def generate_timetable():
+    #     # validate DB prior to generating the timetable
+    #     # show timetable that were already generated
+        
+    #     try:
+    #         rows = query_db ("""
+    #             SELECT * FROM timetable
+    #             WHERE semester = ?
+    #             OR department = ?
+    #             """, (
+    #                 request.form['semester'],
+    #                 request.form['department']
+    #             ))
+            
+    #         if rows.__len__ == 0:
+    #             flash("No timetable generated yet", "error")
+    #         else:
+    #             print("rows:", rows.count)
+    #             print("rows: ---> ", rows)
+            
+    #     except Exception as e:
+    #         flash("Error in.", "error")
+    #         return redirect(url_for('home'))
+
+        
+    #     return render_template(
+    #         "generate_timetable.html",
+    #         rows
+    #     )
+
+
+# TODO: can be deleted at later point
+
     # def staff_register_old():
     #     if request.method == 'POST':
     #         name = request.form['name']
@@ -92,26 +128,26 @@ def staff_routes(app):
     #     return render_template("staff/staff_register.html")
 
     
-    @app.route("/timetable/grid")
-    def timetable_grid():
-        rows = query_db("""
-        SELECT day, period, subject_name
-        FROM timetable
-        WHERE department=? AND semester=?
-    """, ("BSc CS", 3))
+    # @app.route("/timetable/grid")
+    # def timetable_grid():
+    #     rows = query_db("""
+    #     SELECT day, period, subject_name
+    #     FROM timetable
+    #     WHERE department=? AND semester=?
+    # """, ("BSc CS", 3))
 
-        days = ["DAY-1", "DAY-2", "DAY-3", "DAY-4", "DAY-5", "DAY-6"]
-        periods = [1, 2, 3, 4, 5]
+    #     days = ["DAY-1", "DAY-2", "DAY-3", "DAY-4", "DAY-5"]
+    #     periods = [1, 2, 3, 4, 5]
 
-        # Empty grid
-        grid = {day: {p: "" for p in periods} for day in days}
+    #     # Empty grid
+    #     grid = {day: {p: "" for p in periods} for day in days}
 
-        # Fill grid
-        for day, period, subject in rows:
-            grid[day][period] = subject
+    #     # Fill grid
+    #     for day, period, subject in rows:
+    #         grid[day][period] = subject
 
-        return render_template(
-            "timetable_grid.html",
-            grid=grid,
-            periods=periods
-        )
+    #     return render_template(
+    #         "timetable_grid.html",
+    #         grid=grid,
+    #         periods=periods
+    #     )
