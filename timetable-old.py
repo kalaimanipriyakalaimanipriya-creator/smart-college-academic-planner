@@ -3,35 +3,6 @@ from db import query_db
 
 def timetable_routes(app):
 
-    # @app.route("/generate/v1/<int:semester>")
-    # def generate_timetable_v1(semester):
-    #     department = "BSc IT"
-    #     days = ["Day1", "Day2", "Day3", "Day4", "Day5"]
-
-    #     query_db(
-    #         "DELETE FROM timetable WHERE department=? AND semester=?",
-    #         (department, semester)
-    #     )
-
-    #     subjects = query_db("""
-    #         SELECT subject_name, subject_type, hours_per_week
-    #         FROM subjects WHERE department=? AND semester=?
-    #     """, (department, semester))
-
-    #     period, day = 1, 0
-    #     for subject, s_type, hours in subjects:
-    #         repeat = 2 if s_type == "lab" else int(hours)
-    #         for _ in range(repeat):
-    #             query_db(
-    #                 "INSERT INTO timetable VALUES (NULL,            ?,?,?,?,?)",
-    #                 (department, semester, days[day], period, subject)
-    #             )
-    #             period += 1
-    #             if period > 5:
-    #                 period, day = 1, day + 1
-
-    #     return redirect("/student")
-    
     @app.route("/generate/<int:semester>/<string:department>")
     def generate_timetable(semester, department):
         print("generate_timetable - ENTRY")
@@ -87,27 +58,7 @@ def timetable_routes(app):
                         break
                 day_index += 1
 
-        # -------------------------------
-        # Step 2: Place THEORY subjects
-        # -------------------------------
-        # for subject, hours in theory:
-        #     day_pointer = 0
-        #     while hours > 0 and day_pointer < len(days):
-        #         day = days[day_pointer]
-
-        #         # Avoid repeating same subject on same day
-        #         if subject in timetable[day].values():
-        #             day_pointer += 1
-        #             continue
-
-        #         for p in range(1, max_periods + 1):
-        #             if timetable[day][p] is None:
-        #                 timetable[day][p] = subject
-        #                 hours -= 1
-        #                 break
-
-        #         day_pointer += 1
-        
+       
         print("STEP1 SUCCESSFULLY")
         
         # -------------------------------
@@ -144,25 +95,12 @@ def timetable_routes(app):
         # -------------------------------
         for day in days:
             for period in range(1, max_periods + 1):
-                cell = timetable[day][period]
-                if cell:
-                    sub_id = cell[0]
-
-                    staff = query_db("""
-                        SELECT staff_id 
-                        FROM staff_subject_map 
-                        WHERE subject_id=? 
-                        LIMIT 1
-                    """, (sub_id,), one=True)
-
-                    staff_id = staff[0] if staff else None
-
-                    query_db("""
-                        INSERT INTO timetable
-                        (department, semester, day, period, subject_id, staff_id)
-                        VALUES (?, ?, ?, ?, ?, ?)
-                    """, (department, semester, day, period, sub_id, staff_id))
-
+                subject = timetable[day][period]
+                if subject:
+                    query_db(
+                        "INSERT INTO timetable VALUES (NULL,?,?,?,?,?)",
+                        (department, semester, day, period, subject)
+                    )
         print("tIMETABLE GENERATED SUCCESSFULLY")
         
         return redirect("/student")

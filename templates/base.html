@@ -50,12 +50,12 @@
                         <a href="/student">Student View</a>
                         <a href="/view/subject">Subject View</a>
 
-                         {% if session.get('username') == 'staff' %}
+                         {% if session.get('role') == 'staff' %}
                             <a href="/view/staff">Staff View</a>
                         {% endif %}
 
-                        <a href="/view/daily">Daily View</a>
-                        <a href="/view/monthly">Monthly View</a>
+                        <!-- <a href="/view/daily">Daily View</a>
+                        <a href="/view/monthly">Monthly View</a> -->
                     </div>
                 </li>
             </ul>

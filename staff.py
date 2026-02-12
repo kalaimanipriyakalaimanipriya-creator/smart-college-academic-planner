@@ -1,7 +1,7 @@
-from flask import render_template, request, redirect, session, url_for, flash
+from flask import render_template, request, redirect, session, url_for, flash, jsonify
 from db import query_db
 from utils.security import hash_password
-import sqlite3
+# import sqlite3
 
 def staff_routes(app):
 
@@ -29,32 +29,67 @@ def staff_routes(app):
 
         return render_template("staff_dashboard.html")
 
-
     @app.route("/staff/register", methods=['GET', 'POST'])
     def staff_register():
         if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email'].lower()
+            username = request.form['username'].lower()
+            password = hash_password(request.form['password'])
+            department = request.form['department']
+            designation = request.form['designation']
+
+            # Check for duplicate email or username
+            existing_user = query_db(
+                "SELECT id FROM staff WHERE email = ? OR username = ?",
+                (email, username),
+                one=True
+            )
+
+            if existing_user:
+                flash("Email or Username already exists. Please use a different one.", "error")
+                return redirect(url_for('staff_register'))
+
             try:
                 query_db("""
                     INSERT INTO staff
                     (name, email, username, password, department, designation)
                     VALUES (?, ?, ?, ?, ?, ?)
-                """, (
-                    request.form['name'],
-                    request.form['email'],
-                    request.form['username'],
-                    hash_password(request.form['password']),
-                    request.form['department'],
-                    request.form['designation']
-                ))
+                """, (name, email, username, password, department, designation))
 
-                flash("Staff profile created successfully!", "success")
+                flash("Staff profile created successfully! Login with the username password", "success")
                 return redirect(url_for('home'))
 
             except Exception as e:
-                flash("Username already exists. Please choose different username.", "error")
-                return redirect(url_for('create_staff'))
+                print(e)
+                flash("Something went wrong. Please try again.", "error")
+                return redirect(url_for('staff_register'))
 
         return render_template("staff/staff_register.html")
+    
+    
+    
+    @app.route("/staff/check-availability", methods=["POST"])
+    def check_staff_availability():
+        data = request.get_json()
+        email = data.get("email", "").lower()
+        username = data.get("username", "").lower()
+        
+        print("username " , username)
+        print("email " , email);
+
+        user = query_db(
+            "SELECT id FROM staff WHERE email = ? OR username = ?",
+            (email, username),
+            one=True
+        )
+
+        if user:
+            return jsonify({"exists": True})
+        else:
+            return jsonify({"exists": False})
+
+
 
     
 
