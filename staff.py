@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, session, url_for, flash, jsonify
-from db import query_db
+from db import query_db, get_db
 from utils.security import hash_password
 # import sqlite3
 
@@ -88,6 +88,64 @@ def staff_routes(app):
             return jsonify({"exists": True})
         else:
             return jsonify({"exists": False})
+        
+        
+    @app.route("/staff/filter-staff-by-dept", methods=["POST"])
+    def filter_staff_by_dept():
+        data = request.get_json()
+        department = data.get("department")
+
+        db = get_db()
+        staff = db.execute(
+            "SELECT id, name FROM staff WHERE department = ?",
+            (department,)
+        ).fetchall()
+
+        staff_list = [
+            {"id": row["id"], "name": row["name"]}
+            for row in staff
+        ]
+
+        return jsonify(staff_list)
+    
+    @app.route("/staff/filter-subject-by-staff", methods=["POST"])
+    def filter_subject_by_staff():
+        data = request.get_json()
+        staff_id = data.get("staff_id")
+
+        db = get_db()
+
+        # Get department from staff table
+        staff = db.execute(
+            "SELECT department FROM staff WHERE id = ?",
+            (staff_id,)
+        ).fetchone()
+
+        if not staff:
+            return jsonify([])
+
+        department = staff["department"]
+
+        subjects = db.execute(
+            """
+            SELECT id, subject_name, semester
+            FROM subjects
+            WHERE department = ?
+            ORDER BY semester
+            """,
+            (department,)
+        ).fetchall()
+
+        subject_list = [
+            {
+                "id": row["id"],
+                "subject_name": row["subject_name"],
+                "semester": row["semester"]
+            }
+            for row in subjects
+        ]
+
+        return jsonify(subject_list)
 
 
 

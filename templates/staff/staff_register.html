@@ -6,28 +6,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <script>
-function checkAvailability() {
-    const username = document.getElementById("username");
-    const email = document.getElementById("email");
+    function checkAvailability() {
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
 
-    if (!username || !email) return;
+        if (!username || !email) return;
 
-    fetch("/staff/check-availability", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            username: username.value,
-            email: email.value
+        fetch("/staff/check-availability", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                username: username.value,
+                email: email.value
+            })
         })
-    })
-    .then(r => r.json())
-    .then(data => {
-        document.getElementById("username-msg").innerHTML =
-            data.exists
-            ? "<span style='color:red'>Already exists</span>"
-            : "<span style='color:green'>Available ✔</span>";
-    });
-}
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("username-msg").innerHTML =
+                data.exists
+                ? "<span style='color:red'>Already exists</span>"
+                : "<span style='color:green'>Available ✔</span>";
+        });
+    }
 </script>
 
 

@@ -4,26 +4,91 @@
 <head>
     <title>Staff Subject Mapping</title>
 </head>
+
+<script>
+
+    function filterStaffByDepartment() {
+        const department = document.getElementById("department").value;
+        const staffSelect = document.getElementById("staff_id");
+
+        if (!department) return;
+
+        fetch("/staff/filter-staff-by-dept", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ department: department })
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            // Clear old options
+            staffSelect.innerHTML = '<option value="">-- Select Staff --</option>';
+
+            data.forEach(staff => {
+                let option = document.createElement("option");
+                option.value = staff.id;
+                option.textContent = staff.name;
+                staffSelect.appendChild(option);
+            });
+
+            // Clear subjects also
+            document.getElementById("subject_id").innerHTML =
+                '<option value="">-- Select Subject --</option>';
+        });
+    }
+
+
+    function filterSubjectByStaff() {
+        const department = document.getElementById("department").value;
+        const staff_id = document.getElementById("staff_id").value;
+        const subjectSelect = document.getElementById("subject_id");
+
+        if (!staff_id || !department) return;
+
+        fetch("/staff/filter-subject-by-staff", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ staff_id: staff_id, department: department })
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
+
+                data.forEach(subject => {
+                    let option = document.createElement("option");
+                    option.value = subject.id;
+                    option.textContent =
+                        subject.subject_name +
+                        "(Sem " + subject.semester + ")";
+
+                subjectSelect.appendChild(option);
+                });
+            });
+        }
+
+</script>
+
 <body>
 
 <h2>Staff – Subject Mapping</h2>
 
 <form method="POST">
 
+    <label>Semester:</label>
+    <input type="number" min="1" max="6"  name="semester" required>
+    <br><br>
+
     <label>Department</label>
-    <select name="department" required>
+    <select name = "department" id = "department" required onchange = "filterStaffByDepartment()">
         <option value="">Select Department</option>
         <option value="BSc IT">BSc IT</option>
         <option value="BSc CS">BSc CS</option>
         <option value="BCA">BCA</option>
     </select><br><br>
 
-    <label>Semester:</label>
-    <input type="number" name="semester" required>
-    <br><br>
-
     <label>Select Staff:</label>
-    <select name="staff_id" required>
+    <select name="staff_id" id="staff_id" required onchange="filterSubjectByStaff()">
         <option value="">-- Select Staff --</option>
         {% for staff in staff_list %}
             <option value="{{ staff.id }}">
@@ -34,7 +99,7 @@
     <br><br>
 
     <label>Select Subject:</label>
-    <select name="subject_id" required>
+    <select name = "subject_id" id = "subject_id" required onselect="filterSubjectByStaff()">
         <option value="">-- Select Subject --</option>
         {% for subject in subject_list %}
             <option value="{{ subject.id }}">
