@@ -5,6 +5,33 @@
     <title>Staff Profile Creation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+<script>
+    function checkAvailability() {
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
+
+        if (!username || !email) return;
+
+        fetch("/staff/check-availability", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                username: username.value,
+                email: email.value
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("username-msg").innerHTML =
+                data.exists
+                ? "<span style='color:red'>Already exists</span>"
+                : "<span style='color:green'>Available ✔</span>";
+        });
+    }
+</script>
+
+
+
 <body>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -23,12 +50,19 @@
 
     <label>Full Name</label>
     <input type="text" name="name" required>
+
     <label>Email</label>
-    <input type="email" name="email" required>
+    <input type="email" name="email" id="email" required onkeyup="checkAvailability()">
+    <span id="email-msg"></span>
+
     <label>Username</label>
-    <input type="text" name="username" required>
+    <input type="text" name="username" id="username" required onkeyup="checkAvailability()">
+    <span id="username-msg"></span>
+
+
     <label>Password</label>
     <input type="password" name="password" required>
+
     <label>Department</label>
     <select name="department" required>
         <option value="">Select Department</option>
@@ -36,6 +70,7 @@
         <option value="BSc CS">BSc CS</option>
         <option value="BCA">BCA</option>
     </select><br><br>
+
     <label>Designation</label>
     <select name="designation" required>
         <option value="">Select</option>

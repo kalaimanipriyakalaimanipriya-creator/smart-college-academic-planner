@@ -5,12 +5,37 @@
    <link rel="stylesheet" href ="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-<div class="box">
+<div class="box" style="
+    padding: 20px;
+    background-color: #f0e5e8;
+    max-width: 370px;
+    gap: 20px;
+    min-width: 370px;
+    width: 100%;
+    border-radius: 20px !important;
+    box-shadow: 0 0 0 1px rgba(17, 24, 39, .16), 0 2px 2px -2px rgba(17, 24, 39, .05), 0 4px 4px rgba(17, 24, 39, .05), 0 8px 8px rgba(17, 24, 39, .05), 0 16px 16px rgba(17, 24, 39, .05), 0 32px 32px rgba(17, 24, 39, .05) !important;
+;">
   <h2>Login</h2>
   <form method="post">
     <input name="username" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
-    <button>Login</button>
+    <button style="
+    
+    
+    background-color: #2019117f !important;
+    border: 1px solid var(--c-primaryColorTwoBorder) !important;
+    /* background-color: var(--c-primaryColor) !important; */
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px' ;  
+    
+    
+    ">Login</button>
   </form>
 </div>
 </body>

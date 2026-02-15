@@ -1,10 +1,10 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, g
 # from db import init_db
-from flask import g
 from auth import auth_routes
 from staff import staff_routes
 from student import student_routes
 from timetable import timetable_routes
+from mapping import mapping
 
 app = Flask(__name__)
 app.secret_key = "smart_timetable_secret"
@@ -23,7 +23,7 @@ def home():
 
 @app.context_processor
 def inject_user():
-    return dict(current_user_role=session.get("role"))
+    return dict(current_user_role = session.get("role"))
 
 
 
@@ -32,6 +32,7 @@ auth_routes(app)
 staff_routes(app)
 student_routes(app)
 timetable_routes(app)
+mapping(app)
 
 
 if __name__ == "__main__":

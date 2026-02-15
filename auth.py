@@ -34,14 +34,18 @@ def auth_routes(app):
     @app.route("/academic-planner/login", methods=["GET", "POST"])
     def login():
         if request.method == "POST":
-            username = request.form["username"]
+            username = request.form["username"].lower()
             password = request.form["password"]
 
-            user = query_db(
-                "SELECT role, password FROM users WHERE username=?",
-                (username,),
-                one=True
-            )
+            # user = query_db(
+            #     "SELECT role, password FROM users WHERE username=?",
+            #     (username,),
+            #     one=True
+            # )
+            
+            user = query_db("SELECT * FROM staff WHERE username = ?", (username,), one=True)
+
+            
             print("USER:", user)
             print("PASSWORD CHECK:", verify_password(user["password"], password))
 
@@ -50,11 +54,11 @@ def auth_routes(app):
                 print("SESSION l-50 LOGIN:", dict(session))
        
                 session["username"] = username
-                session["role"] = user["role"]     # optional but good
+                # session["role"] = user["role"]     # optional but good
                 
                 print("SESSION AFTER LOGIN:", dict(session))
-                return redirect("/staff" if user["role"] == "staff" else "/student")
-
+                # return redirect("/staff" if user["role"] == "staff" else "/student")
+                return redirect(url_for('staff_dashboard'))
             else:
                 flash("Invalid username or password", "error")
 
