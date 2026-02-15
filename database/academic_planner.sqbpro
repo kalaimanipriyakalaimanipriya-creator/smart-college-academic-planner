@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2636"/><column_width id="4" width="0"/></tab_structure><tab_browse><table title="." custom_title="0" dock_id="5" table="0,0:"/><dock_state state="000000ff00000000fd00000001000000020000024900000213fc0100000002fc000000000000043c0000000000fffffffa000000000100000004fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500330100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500340100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500350100000000000002490000011800ffffff000002490000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">SELECT id, subject_name, staff_id
+FROM subjects
+WHERE department_id = (
+    SELECT id FROM departments WHERE name = 'BSc IT'
+)
+AND semester = 1
+ORDER BY id;
+
+
+
+select * from staff;
+
+-- Sample Staff for Programming in C and C Lab
+INSERT INTO staff (name, email, username, password, department_id, designation) 
+VALUES ('Dr. Kumar', 'kumar@college.edu', 'kumar_it', 'hash_pwd_1', 1, 'Associate Professor');
+
+-- Sample Staff for Digital Computer Fundamentals
+INSERT INTO staff (name, email, username, password, department_id, designation) 
+VALUES ('Ms. Priya', 'priya@college.edu', 'priya_cs', 'hash_pwd_2', 1, 'Assistant Professor');
+
+-- Sample Staff for Mathematics I
+INSERT INTO staff (name, email, username, password, department_id, designation) 
+VALUES ('Mr. Rajesh', 'rajesh@college.edu', 'rajesh_math', 'hash_pwd_3', 2, 'Senior Lecturer');
+
+-- Sample Staff for English I
+INSERT INTO staff (name, email, username, password, department_id, designation) 
+VALUES ('Dr. Anitha', 'anitha@college.edu', 'anitha_eng', 'hash_pwd_4', 3, 'Assistant Professor');
+
+-- Sample Staff for Environmental Studies
+INSERT INTO staff (name, email, username, password, department_id, designation) 
+VALUES ('Mr. Somu', 'somu@college.edu', 'somu_env', 'hash_pwd_5', 1, 'Lecturer');
+</sql><current_tab id="0"/></tab_sql></sqlb_project>

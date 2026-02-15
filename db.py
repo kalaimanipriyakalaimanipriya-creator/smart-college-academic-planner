@@ -48,6 +48,6 @@ def query_db(query, args=(), one=False):
 
 def init_db():
     db = get_db()
-    with open("database/schema.sql") as f:
+    with open("database/schema_v2.sql") as f:
         db.executescript(f.read())
     db.close()
