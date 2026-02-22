@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <link rel="stylesheet" href="../static/css/library/font.css">
+    <link rel="stylesheet" href="../static/css/library/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/library/swiper.min.css">
+    <link rel="stylesheet" href="../static/css/dashboard.css">
+
+    <script src="../static/js/library/bootstrap.min.js"></script>
+    <script src="../static/js/library/jquery.min.js"></script>
+    <script src="../static/js/library/swiper.min.js"></script>
+</head>
+
+<body onload="initializeFunction()">
+    <article class="d-flex parentDashboard p-3">
+        <section class="leftDashboard page-with-super-sidebar">
+            <aside class="mainSideBarPanel gap-2">
+                <section class="leftTopBar p-3 d-flex">
+                    <img class="dashboardLogo" src="../static/images/college_logo.png">
+                    <div class="d-grid align-content-lg-center">
+                        <div class="dashboardCollegeName px-2">
+                            <div style="width: max-content;">Dr.Umayal Ramanathan College</div>
+                            <div class="d-flex justify-content-center">For Women</div>
+                        </div>
+                        <div class="dashboarddescribtion">Accredited with A Grade by NAAC</div>
+                    </div>
+                </section>
+                <section class="leftDownBar h-100" style="background-color: #fbfafd;">
+                    <div class="d-flex justify-content-center mainTextDashboard">
+                        <img src="../static/images/dashboard/dashboard_pic.png" style="width: 50px;height: auto;">
+                        <span
+                            class="text-body-secondary text-uppercase align-self-center font-13 lh-initial font-weight-700 breakWord"
+                            style="max-width: 200px;overflow: hidden;text-overflow: ellipsis;">
+                            Academic Tools
+                        </span>
+                    </div>
+                    <div class="dashboardMenus">
+                        <div class="font-13 lh-initial d-flex my-3 mx-2  font-weight-700 breakWord">
+                            <img src="../static/images/dashboard/dashboard_pic2.png" style="width: 50px;height: 50px;">
+                            <div class="d-grid align-content-center mx-2">Dashboard</div>
+                        </div>
+                        <div class="font-13 lh-initial d-flex my-3 mx-2  font-weight-700 breakWord">
+                            <img src="../static/images/dashboard/dashboard_image.png" style="width: 50px;height: 50px;">
+                            <div class="d-grid align-content-center mx-2">Academic Planner</div>
+                        </div>
+                        <div class="font-13 lh-initial d-flex my-3 mx-2 font-weight-700 breakWord">
+                            <img src="../static/images/dashboard/dashboard_timer.png" style="width: 50px;height: 50px;">
+                            <div class="d-grid align-content-center mx-2">Timetable</div>
+                        </div>
+                        <div class="font-13 lh-initial d-flex my-3 mx-2 font-weight-700 breakWord">
+                            <img src=" ../static/images/dashboard/dashboard_images.png"
+                                style="width: 50px;height: 50px;">
+                            <div class="d-grid align-content-center mx-2">Assignments</div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </section>
+        <section class="rightDashboard mx-3 mainBarPanel w-100">
+            <ul class="routeUi breadcrumb">
+                <li class="breadCrumbItem">
+                    <span class="d-block ellipsis breadCrumbsLastName">URCW</span>
+                </li>
+            </ul>
+            <section class="w-100 h-100 dashboardContent" style="background-color: #fbfafd;">
+                <section class="dashboard_parent d-none">
+                    <div class="firstBlock m-4 p-3">
+                        <div class="d-flex">
+                            <div class="current_time">
+                                <div class="morning">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="sprite-cmorning" viewBox="0 0 150 150"
+                                        width="100" height="100">
+                                        <path fill="#FFE121"
+                                            d="M104.482 15.424s21.636 7.974 36.104 28.896c11.99 17.339 13.462 44.397-3.405 59.024-16.277 14.113-37.94-.781-59.688 23.977-21.772 24.789-66.187 19.883-75.072-18.61C-11.905 46.64 48.255-9.876 104.482 15.424z" />
+                                        <ellipse opacity=".5" fill="#424242" cx="51.644" cy="121.655" rx="33.226"
+                                            ry="8.606" />
+                                        <ellipse fill="#A5A5A5" cx="51.644" cy="118.655" rx="37.601" ry="8.679" />
+                                        <ellipse fill="#FFF" cx="51.644" cy="118.655" rx="33.101" ry="7.641" />
+                                        <ellipse opacity=".5" fill="#424242" cx="107.878" cy="136.568" rx="21.664"
+                                            ry="5" />
+                                        <path fill="#FFC567"
+                                            d="M69.375 103.846s-5.174-.131-6.483 6.204c-.581 2.806 1.553 6.737 5.291 7.209 0 0 .971 4.415 5.404 6.179 0 0-5.466 4.735-4.285 6.701 0 0 2.587 6.133 13.113 1.969 0 0 3.463-1.596 4.242-3.485 0 0 2.043.38 3.802-3.146 1.758-3.523 2.014-7.018.242-9.149 0 0-.026-1.636-.461-2.683-.434-1.045-2.428-5.44-7.973-8.16-2.92-1.433-5.979-.641-5.979-.641s-3.605-1.475-6.913-.998z" />
+                                        <path fill="#B26031"
+                                            d="M75.875 133.557s-6.732-2.396-4.526-5.471c2.206-3.072 2.711-5.559 7.252-4.563 4.541.994 5.334 3.814 5.334 3.814s-.392-3.025-4.834-4.506c-4.443-1.477-5.123-.609-5.123-.609s3.031-11.027 15.932-6.248c0 0-5.146-3.742-12.914-.051-3.516 1.67-4.121 5.717-4.121 5.717s-6.547-4.565-1.011-12.713c0 0 1.499-2.427 4.072-3.771 0 0-6.538 1.044-7.787 7.546 0 0-.437 2.14-.162 2.914.274.774-5.698-2.392-4.675-7.071 0 0-1.961 4.447 1.993 7.5.597.462 1.767 1.012 2.875 1.215 0 0 .183 1.932 1.593 3.25 0 0 2.629 2.736 3.936 2.906 0 0-2.17 1.622-4.181 4.73-1.314 2.035 1.111 3.871 2.414 4.557 1.214.637 3.091.883 3.933.854z" />
+                                        <path fill="#47505E"
+                                            d="M126.236 135.129c-2.063 2.029-5.111 4.243-10.563 4.243-5.673 0-9.829-1.433-11.673-3.663-7.77-9.398-6.384-27.555-6.384-27.555.167-5.816 5.753 4.953 17.458 3.647 7.425-.827 17.297-7.946 17.458-4.017.593 14.441-3.691 24.784-6.296 27.345z" />
+                                        <ellipse fill="#47505E" cx="115.074" cy="107.962" rx="17.458" ry="6.285" />
+                                        <ellipse fill="#FFF" cx="115.074" cy="107.652" rx="13.767" ry="3.796" />
+                                        <path fill="#47505E"
+                                            d="M131.035 113.997s8.77-1.132 8.594 6.915c-.188 8.604-8.566 9.596-10.852 9.596-1.062 0 .002-3.214 1.709-3.293 2.049-.093 5.888-1.29 5.813-6.229-.037-2.506-2.969-4.195-5.363-2.899 0 0-2.134.361-2.156-1.833-.02-1.742 1.811-2.205 2.255-2.257z" />
+                                        <path opacity=".7" fill="#FFF"
+                                            d="M138.827 74.518c-1.716 2.778-4.724 4.403-8.171 4.403-14.236 0-21.547 6.134-15.391 13.916 5.895 7.448-4.566 13.438-4.566 13.438s2.77-11.312-15.568-13.803c-11.749-1.596-14.904-15.742-1.492-18.895 7.752-1.821 10.564-6.908 12.973-11.729 0 0 11.349-18.104 30.271-3.063 7.73 6.146 1.944 15.733 1.944 15.733z" />
+                                        <path fill="#B45916"
+                                            d="M29.292 118.502v2.023s-.213.619 1.696 1.367c2.008.789 3.942 2.525 6.035 3.762 2.093 1.238 2.466 2.051 6.065 2.063 2.727.011 4.48-1.739 7.681-2.362 0 0 5.557-1.563 9.54-2.459 3.982-.896 5.002-7.17 2.83-9.397-2.173-2.229-13.487-1.618-13.487-1.618l-17.596 5.501s-2.268.192-2.455.417-.309.383-.309.703z" />
+                                        <path fill="#F2C982"
+                                            d="M30.451 117.119s3.362-1.113 8.767-2.381c4.627-1.084 5.303-1.993 9.875-3.43 4.571-1.438 8.361-3.09 11.287-.541 2.926 2.551 7.958 7.125-2.306 9.998-10.322 2.889-12.12 4.057-15.29 4.057s-3.688-1.021-6.065-2.504c-2.377-1.483-5.395-2.772-6.268-2.976-.874-.197-1.727-1.363 0-2.223z" />
+                                        <path fill="#B45916"
+                                            d="M27.832 115.104v2.342s-.244.587 1.646 1.128c1.89.54 4.43 1.793 6.522 3.028s2.781 1.81 6.38 1.822c2.727.012 4.002-1.762 6.38-2.503 0 0 5.486-2.704 9.468-3.601s5.622-4.992 3.449-7.221c-2.172-2.229-13.486-1.619-13.486-1.619l-17.596 5.502s-2.268.19-2.455.416c-.187.227-.308.385-.308.706z" />
+                                        <path fill="#F2C982"
+                                            d="M28.99 113.721s3.203-1.988 8.127-3.4c4.531-1.297 4.389-2.426 8.96-3.861 4.572-1.438 9.916-1.639 12.841.911 2.926 2.55 6.888 4.96-3.047 8.438-9.936 3.476-11.216 4.819-14.386 4.819s-3.048-.278-5.425-1.761c-2.377-1.484-6.197-2.721-7.07-2.922-.874-.201-1.727-1.365 0-2.224z" />
+                                        <circle fill="#FFF" cx="31.053" cy="34.807" r="25.563" />
+                                        <circle fill="#FFE121" cx="29.285" cy="33.001" r="25.563" />
+                                        <path fill="#FFF"
+                                            d="M17.424 12.968s-1.856 1.596-3.99 4.454a31.705 31.705 0 0 0-3.134 5.151c-.47.991-.918 2.03-1.283 3.117a33.004 33.004 0 0 0-.919 3.342 26.45 26.45 0 0 0-.469 3.396c-.084 1.229-.098 2.253.012 3.339.049 1.081.229 2.121.415 3.104.178.988.419 1.912.661 2.764.236.854.501 1.626.738 2.313.234.689.477 1.278.667 1.771.397.976.655 1.531.655 1.531s-.436-.434-1.065-1.303a18.406 18.406 0 0 1-1.065-1.618c-.399-.639-.771-1.399-1.169-2.239a24.847 24.847 0 0 1-1.05-2.817c-.283-1.033-.548-2.141-.689-3.314-.154-1.161-.158-2.482-.104-3.621.1-1.29.29-2.484.563-3.72a23.228 23.228 0 0 1 1.106-3.56c.458-1.14.961-2.24 1.554-3.244a26.09 26.09 0 0 1 3.794-5.055 23.818 23.818 0 0 1 3.355-2.898c.878-.611 1.417-.893 1.417-.893z"
+                                            opacity=".7" />
+                                        <path fill="#FFF"
+                                            d="M23.305 69.248h31.869s5.646 0 8.312-2.445c0 0 4.158-2.56 2.333-7.515-1.395-3.789-5.368-3.605-5.368-3.605s-4.124-15.801-18.569-16.038c-14.445-.236-19.005 9.475-19.084 11.606 0 0-4.87-1.986-9.683 3.604-3.126 3.632-3.399 14.393 10.19 14.393z" />
+                                    </svg>
+                                </div>
+                                <div class="evening d-none">
+                                    <svg xmlns="http: //www.w3.org/2000/svg" id="sprite-cevening" viewBox="0 0 150 150"
+                                        width="100" height="100">
+                                        <path fill="#FFE121"
+                                            d="M104.482 14.521s21.637 7.974 36.105 28.896c11.99 17.339 13.462 44.397-3.406 59.024-16.277 14.113-37.939-.781-59.687 23.977-21.771 24.788-66.186 19.882-75.071-18.611-14.328-62.071 45.833-118.586 102.059-93.286z" />
+                                        <circle fill="#FFE121" cx="29.286" cy="34.397" r="26.063" />
+                                        <path fill="#FFF"
+                                            d="M29.286 61.433c-14.908 0-27.036-12.128-27.036-27.036S14.378 7.361 29.286 7.361s27.036 12.128 27.036 27.036-12.128 27.036-27.036 27.036zm0-52.072C15.481 9.361 4.25 20.592 4.25 34.397s11.231 25.036 25.036 25.036c13.805 0 25.036-11.231 25.036-25.036S43.091 9.361 29.286 9.361z" />
+                                        <path fill="#FFF"
+                                            d="M21.885 12.109s-.618.38-1.617 1.177c-.495.401-1.083.901-1.737 1.497l-1.008.979-1.06 1.139-1.078 1.296-1.06 1.451-1.018 1.592c-.306.566-.642 1.13-.941 1.725-.269.609-.572 1.213-.824 1.846-.223.646-.479 1.285-.681 1.947-.169.673-.362 1.343-.517 2.023l-.339 2.07-.128 2.134c-.01.705.062 1.345.088 2.005.051.658.198 1.332.27 1.983.112.651.272 1.286.392 1.915.133.628.337 1.229.466 1.836.178.594.379 1.169.538 1.744a46.574 46.574 0 0 0 1.255 3.141l.658 1.374.644 1.228c.42.766.809 1.429 1.137 1.977.664 1.088 1.086 1.701 1.086 1.701l-.2.223s-.676-.366-1.698-1.219a20.868 20.868 0 0 1-1.743-1.65 23.519 23.519 0 0 1-1.966-2.438l-.974-1.519-.888-1.725a31.556 31.556 0 0 1-.776-1.907 29.962 29.962 0 0 1-.589-2.077c-.114-.726-.281-1.456-.338-2.21-.039-.76-.102-1.51-.083-2.294.048-.783.064-1.604.142-2.356l.338-2.239.545-2.237c.226-.729.49-1.444.731-2.156.274-.701.603-1.373.896-2.046.323-.659.697-1.283 1.035-1.908.367-.609.769-1.183 1.14-1.754.399-.553.817-1.073 1.215-1.583l1.253-1.404 1.247-1.232 1.206-1.063 1.131-.902a27.922 27.922 0 0 1 1.927-1.336c1.099-.688 1.777-1.006 1.777-1.006l.146.258z" />
+                                        <path opacity=".7" fill="#FFF" d="M29.5 125.245H15.002l-2.264-26.528h19.208z" />
+                                        <path opacity=".5" fill="#FFF" d="M28.129 123.17H16.36l-1.911-22.378h15.744z" />
+                                        <path fill="#FA505B"
+                                            d="M14.863 105.645s3.105-.207 8.069.67c4.963.875 6.815-.691 6.815-.691l-1.618 17.548H16.36l-1.497-17.527z" />
+                                        <circle fill="#E6E7E8" cx="17.512" cy="108.854" r=".347" />
+                                        <circle fill="#E6E7E8" cx="18.207" cy="114.396" r=".347" />
+                                        <circle fill="#E6E7E8" cx="20.711" cy="110.706" r=".347" />
+                                        <circle fill="#E6E7E8" cx="25.72" cy="114.396" r=".347" />
+                                        <circle fill="#E6E7E8" cx="27.425" cy="110.827" r=".348" />
+                                        <circle fill="#E6E7E8" cx="23.804" cy="108.507" r=".347" />
+                                        <circle fill="#E6E7E8" cx="23.167" cy="112.966" r=".347" />
+                                        <path fill="#272B30"
+                                            d="M46.072 113.952h50.586s2.455.021 3.611 1.692l4.147 5.635s.608-.379.748.42c.265 1.513-.22 2.873-2.233 2.82-3.92-.104-65.557 0-65.557 0s-3.481.103-2.742-2.701c.116-.44.486.173 1.16-.562 3.344-3.633 6.233-6.253 6.233-6.253s.869-1.174 4.047-1.051z" />
+                                        <path fill="#47505E"
+                                            d="M46.072 112.425h50.586s2.455.021 3.611 1.692l4.147 5.634s2.437 3.345-1.485 3.241c-3.92-.104-65.557 0-65.557 0s-4.926.369-1.583-3.262c3.344-3.633 6.233-6.254 6.233-6.254s.87-1.174 4.048-1.051z" />
+                                        <ellipse fill="#FFF" cx="70.22" cy="117.131" rx="4.995" ry="1.485" />
+                                        <path fill="#ECE7EB"
+                                            d="m143.066 112.298.091 3.742-5.647 8.981-28.949-.256s-.816-.289-.731-1.207.153-4.049.153-4.049l1.021-.562h1.515l24.986-1.515 7.314-5.646.247.512z" />
+                                        <path fill="#BC5E2B"
+                                            d="m108.516 118.669 9.023-8.582 26.809.545-7.009 9.117-28.032-.545s-1.225-.206-1.225 1.021v3.521s-.033.97 1.021 1.003c1.055.034 28.404.272 28.404.272l5.646-8.981-.441-.103-.052-.373 1.957.102-6.746 10.266-29.162-.554s-1.183.011-1.183-1.538v-3.684c.003 0 .182-.961.99-1.487z" />
+                                        <path fill="#ECE7EB"
+                                            d="m141.07 105.768.091 3.741-5.647 8.981-28.949-.256s-.816-.289-.731-1.207.153-4.049.153-4.049l1.02-.562h1.516l24.986-1.515 7.313-5.646.248.513z" />
+                                        <path fill="#394E53"
+                                            d="m106.52 112.137 9.023-8.58 26.809.543-7.01 9.117-28.031-.544s-1.225-.206-1.225 1.021v3.521s-.033.971 1.021 1.004c1.054.033 28.404.272 28.404.272l5.647-8.981-.443-.102-.051-.375 1.957.103-6.746 10.267-29.162-.555s-1.182.01-1.182-1.539v-3.683c.003-.001.181-.962.989-1.489z" />
+                                        <path fill="#ECE7EB"
+                                            d="m144.335 98.629.091 3.742-5.646 8.98-28.95-.256s-.815-.289-.731-1.207c.086-.918.153-4.049.153-4.049l1.021-.561h1.515l24.987-1.514 7.313-5.647.247.512z" />
+                                        <path fill="#F6A24C"
+                                            d="m109.786 104.999 9.022-8.581 26.809.544-7.008 9.117-28.032-.545s-1.226-.206-1.226 1.021v3.521s-.033.97 1.021 1.003c1.055.034 28.404.272 28.404.272l5.647-8.98-.442-.104-.051-.373 1.957.102-6.746 10.266-29.162-.553s-1.183.009-1.183-1.539v-3.684c.003 0 .183-.961.99-1.487z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="mx-4">
+                                <div class="username_dashboardTop">Good Morning Sathish
+                                </div>
+                                <div class="username_dashboard_description">
+                                    Welcome 👋 Are you feeling awesome this morning? Great 💪
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="secondBlock"></div>
+                </section>
+                <section class="academic_planner">
+                    <div class="d-flex">
+                        <div>Add Subjects</div>
+                        <div>Staff Subject Mapping</div>
+                        <div>Generate Timetable</div>
+                    </div>
+                    <section class="Add Subjects">
+                        <h2>Add Subject</h2>
+                        <form method="post">
+
+                        Department:
+                        <select name="department" required>
+                            <option value="">Select</option>
+                            <option value="BSc IT">BSc IT</option>
+                            <option value="BSc CS">BSc CS</option>
+                            <option value="BCA">BCA</option>
+                        </select>
+
+                        Semester:
+                        <select name="semester" id="semester" required>
+                            <option value="">Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="">6</option>
+
+                        </select>
+
+                        Subject: <input name="subject" required>
+                        Type:
+                        <select name="type">
+                            <option>theory</option>
+                            <option>lab</option>
+                        </select>
+                        Hours/Week: <input name="hours" required>
+                        <button>Add</button>
+                        </form>
+                    </section>
+                    <section class="Staff Subject Mapping">
+                        <h2>Staff – Subject Mapping</h2>
+                        <form method="POST">
+
+                            <label>Semester:</label>
+                            <select name="semester" id="semester" onchange="applyFilters()">
+                            <option value="">Select Semester</option>
+                            {% for sem in range(1,7) %}
+                                <option value="{{ sem }}"
+                                {% if selected_semester == sem|string %} selected {% endif %}>
+                                    {{ sem }}
+                                </option>
+                            {% endfor %}
+                            </select>
+                            <br><br>
+
+                            <label>Department</label>
+                            <select name="department" id="department" onchange="applyFilters()">
+                                <option value="">Select Department</option>
+
+                                <option value="BCA"
+                                {% if selected_department == "BCA" %} selected {% endif %}>
+                                    BCA
+                                </option>
+
+                                <option value="BSc IT"
+                                {% if selected_department == "BSc IT" %} selected {% endif %}>
+                                    BSc IT
+                                </option>
+
+                                <option value="BSc CS"
+                                {% if selected_department == "BSc CS" %} selected {% endif %}>
+                                    BSc CS
+                                </option>
+                            </select>
+                            <br><br>
+
+
+                            <label>Select Staff:</label>
+                            <select name="staff_id" id="staff_id">
+                            <option value="">-- Select Staff --</option>
+                            {% if subject_list and subject_list|length > 0 %}
+                                {% for staff in staff_list %}
+                                    <option value="{{ staff.id }}"
+                                    {% if selected_staff == staff.id|string %} selected {% endif %}>
+                                        {{ staff.name }}
+                                    </option>
+                                {% endfor %}
+                            {% else %}
+                                <option value = "" disabled>
+                                    No staff details available for the selected filters
+                                </option>
+                            {% endif %}
+                            </select>
+
+                            <br><br>
+
+                            <label>Select Subject:</label>
+                            <select name="subject_id" id="subject_id">
+                                <option value="">-- Select Subject --</option>
+                                {% if not subject_list %}
+                                    <p style="color:red;">
+                                        No subjects found for selected Department and Semester.
+                                    </p>
+                                {% endif %}
+
+                                {% for subject in subject_list %}
+                                    <option value="{{ subject.id }}"
+                                    {% if selected_subject == subject.id|string %} selected {% endif %}>
+                                        {{ subject.subject_name }} (Sem {{ subject.semester }})
+                                    </option>
+                                {% endfor %}
+
+
+                                <!-- {% if subject_list and subject_list|length > 0 %}
+                                    {% for subject in subject_list %}
+                                        <option value="{{ subject.id }}"
+                                        {% if selected_subject == subject.id|string %} selected {% endif %}>
+                                            {{ subject.subject_name }} (Sem {{ subject.semester }})
+                                        </option>
+                                    {% endfor %}
+                                {% else %}
+                                    <option value="" disabled>
+                                        No subjects available for selected filters
+                                    </option>
+                            {% endif %} -->
+                            </select>
+
+                            <br><br>
+
+                            <button type="submit">Save Mapping</button>
+
+                        </form>
+                        <hr>
+                        <h3>Existing Mappings</h3>
+                        <table border="1" cellpadding="5">
+                            <tr>
+                                <th>Staff</th>
+                                <th>Subject</th>
+                                <th>Department</th>
+                                <th>Semester</th>
+                            </tr>
+
+                            {% for map in mappings %}
+                            <tr>
+                                <td>{{ map.name }}</td>
+                                <td>{{ map.subject_name }}</td>
+                                <td>{{ map.department }}</td>
+                                <td>{{ map.semester }}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+                    </section>
+                    <section class="generate timetable">
+                        
+<form method="post">
+  <br />
+  Semester:
+  <select name="semester" id="semester">
+        <option value="">Select</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    
+    </select>
+
+   Department:
+    <select name="department" id="department">
+    <option value="">Select</option>
+    <option value="BSc IT">BSc IT</option>
+    <option value="BSc CS">BSc CS</option>
+    <option value="BCA">BCA</option>
+    </select>
+    <br><br>
+
+  <button>View Timetable</button>
+</form>
+
+<br />
+<br />
+<br />
+<br />
+<!-- 
+<div border="1" cellpadding="8">
+    {% if department %} 
+    {% endif %}
+    
+    {% if semester %}
+    {% endif %}
+</div> -->
+
+{% if searched and not grid %}
+<p>No timetable available.</p>
+{% endif %}
+
+{% if grid %}
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>DAY / TIME</th>
+            {% for t in time_map.values() %}
+                <th>{{ t }}</th>
+            {% endfor %}
+        </tr>
+
+        {% for day, periods in grid.items() %}
+        <tr>
+            <th>{{ day }}</th>
+            {% for subject in periods.values() %}
+                <td>{{ subject if subject else "-" }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<br />
+
+<br />
+<br />
+<br />
+
+
+<a href="{{ url_for('home') }}">Back to Home</a>
+<br />
+
+                    </section>
+                </section>
+                <section class="timetable_planner"></section>
+                <section class="assignments_planner"></section>
+            </section>
+        </section>
+    </article>
+
+    <script src="../static/js/dashboard.js"></script>
+</body>
+
+</html>

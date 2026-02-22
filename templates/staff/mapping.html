@@ -67,6 +67,55 @@
             });
         }
 
+    // advance level filtering
+
+
+    function applyFilters() {
+
+        const semester = document.getElementById("semester").value;
+        const department = document.getElementById("department").value;
+        const staff_id = document.getElementById("staff_id").value;
+        const subject_id = document.getElementById("subject_id").value;
+
+        fetch("/filter-data", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                semester: semester,
+                department: department,
+                staff_id: staff_id,
+                subject_id: subject_id
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            // Update staff dropdown
+            const staffSelect = document.getElementById("staff_id");
+            staffSelect.innerHTML = '<option value="">-- Select Staff --</option>';
+
+            data.staff.forEach(staff => {
+                let option = document.createElement("option");
+                option.value = staff.id;
+                option.textContent = staff.name;
+                staffSelect.appendChild(option);
+            });
+
+            // Update subject dropdown
+            const subjectSelect = document.getElementById("subject_id");
+            subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
+
+            data.subjects.forEach(subject => {
+                let option = document.createElement("option");
+                option.value = subject.id;
+                option.textContent =
+                    subject.subject_name + " (Sem " + subject.semester + ")";
+                subjectSelect.appendChild(option);
+            });
+
+        });
+    }
+
 </script>
 
 <body>
@@ -76,38 +125,89 @@
 <form method="POST">
 
     <label>Semester:</label>
-    <input type="number" min="1" max="6"  name="semester" required>
+    <select name="semester" id="semester" onchange="applyFilters()">
+    <option value="">Select Semester</option>
+    {% for sem in range(1,7) %}
+        <option value="{{ sem }}"
+        {% if selected_semester == sem|string %} selected {% endif %}>
+            {{ sem }}
+        </option>
+    {% endfor %}
+    </select>
     <br><br>
 
     <label>Department</label>
-    <select name = "department" id = "department" required onchange = "filterStaffByDepartment()">
+    <select name="department" id="department" onchange="applyFilters()">
         <option value="">Select Department</option>
-        <option value="BSc IT">BSc IT</option>
-        <option value="BSc CS">BSc CS</option>
-        <option value="BCA">BCA</option>
-    </select><br><br>
 
-    <label>Select Staff:</label>
-    <select name="staff_id" id="staff_id" required onchange="filterSubjectByStaff()">
-        <option value="">-- Select Staff --</option>
-        {% for staff in staff_list %}
-            <option value="{{ staff.id }}">
-                {{ staff.name }}
-            </option>
-        {% endfor %}
+        <option value="BCA"
+        {% if selected_department == "BCA" %} selected {% endif %}>
+            BCA
+        </option>
+
+        <option value="BSc IT"
+        {% if selected_department == "BSc IT" %} selected {% endif %}>
+            BSc IT
+        </option>
+
+        <option value="BSc CS"
+        {% if selected_department == "BSc CS" %} selected {% endif %}>
+            BSc CS
+        </option>
     </select>
     <br><br>
 
-    <label>Select Subject:</label>
-    <select name = "subject_id" id = "subject_id" required onselect="filterSubjectByStaff()">
-        <option value="">-- Select Subject --</option>
-        {% for subject in subject_list %}
-            <option value="{{ subject.id }}">
-                {{ subject.subject_name }} 
-                ({{ subject.department }} - Sem {{ subject.semester }})
+
+    <label>Select Staff:</label>
+    <select name="staff_id" id="staff_id">
+    <option value="">-- Select Staff --</option>
+    {% if subject_list and subject_list|length > 0 %}
+        {% for staff in staff_list %}
+            <option value="{{ staff.id }}"
+            {% if selected_staff == staff.id|string %} selected {% endif %}>
+                {{ staff.name }}
             </option>
         {% endfor %}
+    {% else %}
+        <option value = "" disabled>
+            No staff details available for the selected filters
+        </option>
+    {% endif %}
     </select>
+
+    <br><br>
+
+    <label>Select Subject:</label>
+    <select name="subject_id" id="subject_id">
+        <option value="">-- Select Subject --</option>
+        {% if not subject_list %}
+            <p style="color:red;">
+                No subjects found for selected Department and Semester.
+            </p>
+        {% endif %}
+
+        {% for subject in subject_list %}
+            <option value="{{ subject.id }}"
+            {% if selected_subject == subject.id|string %} selected {% endif %}>
+                {{ subject.subject_name }} (Sem {{ subject.semester }})
+            </option>
+        {% endfor %}
+
+
+        <!-- {% if subject_list and subject_list|length > 0 %}
+            {% for subject in subject_list %}
+                <option value="{{ subject.id }}"
+                {% if selected_subject == subject.id|string %} selected {% endif %}>
+                    {{ subject.subject_name }} (Sem {{ subject.semester }})
+                </option>
+            {% endfor %}
+        {% else %}
+            <option value="" disabled>
+                No subjects available for selected filters
+            </option>
+    {% endif %} -->
+    </select>
+
     <br><br>
 
     <button type="submit">Save Mapping</button>

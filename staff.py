@@ -5,14 +5,10 @@ from utils.security import hash_password
 
 def staff_routes(app):
 
-    # @app.route("/staff/register", methods=['GET', 'POST'])
-    # def staff_register():
-    #     return render_template("staff/staff_register.html")
-
     @app.route("/staff", methods=["GET", "POST"])
     def staff_dashboard():
-        if session.get("role") != "staff":
-            return redirect(url_for("login"))
+        # if session.get("role") != "staff":
+        #     return redirect(url_for("login"))
 
         if request.method == "POST":
             query_db("""
@@ -27,47 +23,11 @@ def staff_routes(app):
                 request.form["hours"]
             ))
 
-        return render_template("staff_dashboard.html")
+        return render_template("staff/staff_dashboard.html")
 
-    @app.route("/staff/register", methods=['GET', 'POST'])
-    def staff_register():
-        if request.method == 'POST':
-            name = request.form['name']
-            email = request.form['email'].lower()
-            username = request.form['username'].lower()
-            password = hash_password(request.form['password'])
-            department = request.form['department']
-            designation = request.form['designation']
-
-            # Check for duplicate email or username
-            existing_user = query_db(
-                "SELECT id FROM staff WHERE email = ? OR username = ?",
-                (email, username),
-                one=True
-            )
-
-            if existing_user:
-                flash("Email or Username already exists. Please use a different one.", "error")
-                return redirect(url_for('staff_register'))
-
-            try:
-                query_db("""
-                    INSERT INTO staff
-                    (name, email, username, password, department, designation)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                """, (name, email, username, password, department, designation))
-
-                flash("Staff profile created successfully! Login with the username password", "success")
-                return redirect(url_for('home'))
-
-            except Exception as e:
-                print(e)
-                flash("Something went wrong. Please try again.", "error")
-                return redirect(url_for('staff_register'))
-
-        return render_template("staff/staff_register.html")
-    
-    
+    @app.route("/dashboard", methods=["GET", "POST"])
+    def dashboard():
+        return render_template("dashboard.html")
     
     @app.route("/staff/check-availability", methods=["POST"])
     def check_staff_availability():
@@ -81,6 +41,23 @@ def staff_routes(app):
         user = query_db(
             "SELECT id FROM staff WHERE email = ? OR username = ?",
             (email, username),
+            one=True
+        )
+
+        if user:
+            return jsonify({"exists": True})
+        else:
+            return jsonify({"exists": False})
+        
+    @app.route("/staff/forgot-password", methods=["POST"])
+    def forgot_password():
+        username = request.form("username").lower()
+        
+        print("username " , username)
+
+        user = query_db(
+            "SELECT id FROM staff WHERE email = ? OR username = ?",
+            (username),
             one=True
         )
 
@@ -146,101 +123,60 @@ def staff_routes(app):
         ]
 
         return jsonify(subject_list)
-
-
-
     
+    @app.route("/filter-data", methods=["POST"])
+    def filter_data():
 
-    # @app.route("/staff/generate/timetable", methods=['GET', 'POST'])
-    # def generate_timetable():
-    #     # validate DB prior to generating the timetable
-    #     # show timetable that were already generated
-        
-    #     try:
-    #         rows = query_db ("""
-    #             SELECT * FROM timetable
-    #             WHERE semester = ?
-    #             OR department = ?
-    #             """, (
-    #                 request.form['semester'],
-    #                 request.form['department']
-    #             ))
-            
-    #         if rows.__len__ == 0:
-    #             flash("No timetable generated yet", "error")
-    #         else:
-    #             print("rows:", rows.count)
-    #             print("rows: ---> ", rows)
-            
-    #     except Exception as e:
-    #         flash("Error in.", "error")
-    #         return redirect(url_for('home'))
+        data = request.get_json()
 
-        
-    #     return render_template(
-    #         "generate_timetable.html",
-    #         rows
-    #     )
+        semester = data.get("semester")
+        department = data.get("department")
 
+        db = get_db()
 
-# TODO: can be deleted at later point
+        # ----------------------
+        # Build Subject Query
+        # ----------------------
+        subject_query = "SELECT id, subject_name, semester FROM subjects WHERE 1=1"
+        subject_params = []
 
-    # def staff_register_old():
-    #     if request.method == 'POST':
-    #         name = request.form['name']
-    #         email = request.form['email']
-    #         username = request.form['username']
-    #         # Password is never stored as plain text
-    #         password = hash_password(request.form['password']) # convert hashed password 
-    #         department = request.form['department']
-    #         designation = request.form['designation']
+        if department:
+            subject_query += " AND department = ?"
+            subject_params.append(department)
 
-    #         try:
-    #             conn = sqlite3.connect('database.db')
-    #             cur = conn.cursor()
+        if semester:
+            subject_query += " AND semester = ?"
+            subject_params.append(semester)
 
-    #             cur.execute("""
-    #                 INSERT INTO staff
-    #                 (name, email, username, password, department, designation)
-    #                 VALUES (?, ?, ?, ?, ?, ?)
-    #             """, (name, email, username, password, department, designation))
+        subjects = db.execute(subject_query, subject_params).fetchall()
 
-    #             conn.commit()
-    #             conn.close()
+        subject_list = [
+            {
+                "id": row["id"],
+                "subject_name": row["subject_name"],
+                "semester": row["semester"]
+            }
+            for row in subjects
+        ]
 
-    #             # ✅ SUCCESS
-    #             flash("Staff profile created successfully!", "success")
-    #             return redirect(url_for('home'))
+        # ----------------------
+        # Build Staff Query
+        # ----------------------
+        staff_query = "SELECT id, name FROM staff WHERE 1=1"
+        staff_params = []
 
-    #         except sqlite3.IntegrityError:
-    #             # ❌ DUPLICATE USERNAME
-    #             flash("Username already exists. Please choose a different username.", "error")
-    #             return redirect(url_for('create_staff'))
+        if department:
+            staff_query += " AND department = ?"
+            staff_params.append(department)
 
-    #     # return render_template('staff_profile.html')
-    #     return render_template("staff/staff_register.html")
+        staff = db.execute(staff_query, staff_params).fetchall()
 
-    
-    # @app.route("/timetable/grid")
-    # def timetable_grid():
-    #     rows = query_db("""
-    #     SELECT day, period, subject_name
-    #     FROM timetable
-    #     WHERE department=? AND semester=?
-    # """, ("BSc CS", 3))
+        staff_list = [
+            {"id": row["id"], "name": row["name"]}
+            for row in staff
+        ]
 
-    #     days = ["DAY-1", "DAY-2", "DAY-3", "DAY-4", "DAY-5"]
-    #     periods = [1, 2, 3, 4, 5]
-
-    #     # Empty grid
-    #     grid = {day: {p: "" for p in periods} for day in days}
-
-    #     # Fill grid
-    #     for day, period, subject in rows:
-    #         grid[day][period] = subject
-
-    #     return render_template(
-    #         "timetable_grid.html",
-    #         grid=grid,
-    #         periods=periods
-    #     )
+        return jsonify({
+            "subjects": subject_list,
+            "staff": staff_list
+        })

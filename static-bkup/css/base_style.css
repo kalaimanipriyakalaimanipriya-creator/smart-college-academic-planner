@@ -1,0 +1,35 @@
+
+body{
+    font-family: Arial;
+    background:#f5f5f5;
+}
+.box{
+    width:420px;
+    padding:20px;
+    border:2px solid black;
+    border-radius:10px;
+    margin:25px auto;
+    background:white;
+}
+h3{
+    text-align:center;
+    margin-bottom:10px;
+}
+label{
+    display:block;
+    margin-top:10px;
+}
+input, select, textarea{
+    width:100%;
+    padding:7px;
+    margin-top:5px;
+}
+button{
+    margin-top:15px;
+    width:100%;
+    padding:8px;
+    font-weight:bold;
+}
+hr{
+    margin:40px 0;
+}

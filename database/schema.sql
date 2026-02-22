@@ -1,8 +1,17 @@
-CREATE TABLE IF NOT EXISTS users (
+-- CREATE TABLE IF NOT EXISTS users (
+--     id INTEGER PRIMARY KEY AUTOINCREMENT,
+--     username TEXT UNIQUE,
+--     password TEXT,
+--     role TEXT
+-- );
+
+CREATE TABLE IF NOT EXISTS student (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    password TEXT,
-    role TEXT
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    regNo TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    department TEXT
 );
 
 CREATE TABLE IF NOT EXISTS subjects (
@@ -15,14 +24,6 @@ CREATE TABLE IF NOT EXISTS subjects (
     semester_id INTEGER
 );
 
--- CREATE TABLE IF NOT EXISTS timetable (
---     id INTEGER PRIMARY KEY AUTOINCREMENT,
---     department TEXT,
---     semester INTEGER,
---     day TEXT,
---     period INTEGER,
---     subject_name TEXT
--- );
 CREATE TABLE IF NOT EXISTS timetable (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     department TEXT,

@@ -7,28 +7,54 @@ def mapping(app):
 
     @app.route('/mapping', methods=['GET', 'POST'])
     def staff_mapping():
+        db = get_db()
+        selected_department = ""
+        selected_semester = ""
+        selected_staff = ""
+        selected_subject = ""
         
         if request.method == 'GET':
-                staff_list = query_db("SELECT * FROM staff")
-                flash("Staff table retrieve successfully!", "success")
-                
-                subject_list = query_db("SELECT * FROM subjects")
-                flash("subjects table retrieve successfully!", "success")
+            staff_list = query_db("SELECT * FROM staff")
+            subject_list = query_db("SELECT * FROM subjects")
         
         if request.method == 'POST':
-            staff_id = request.form['staff_id']
-            subject_id = request.form['subject_id']
-            department = request.form['department']
-            semester = request.form['semester']
+            selected_staff      = request.form['staff_id']
+            selected_subject    = request.form['subject_id']
+            selected_department = request.form['department']
+            selected_semester   = request.form['semester']
 
         try:
-            # query_db("""
-            #     INSERT INTO staff_subject_map 
-            #     (staff_id, subject_id)
-            #     VALUES (?, ?)
-            # """, (staff_id, subject_id))
+            query_db("""
+                INSERT INTO staff_subject_map 
+                (staff_id, subject_id)
+                VALUES (?, ?)
+            """, (selected_staff, selected_subject))
 
             flash("Mapping saved successfully!", "success")
+            
+             # Always fetch filtered data based on selected values
+            subject_query = "SELECT * FROM subjects WHERE 1=1"
+            subject_params = []
+
+            if selected_department:
+                subject_query += " AND department = ?"
+                subject_params.append(selected_department)
+
+            if selected_semester:
+                subject_query += " AND semester = ?"
+                subject_params.append(selected_semester)
+
+            subjects = db.execute(subject_query, subject_params).fetchall()
+
+            staff_query = "SELECT * FROM staff WHERE 1=1"
+            staff_params = []
+
+            if selected_department:
+                staff_query += " AND department = ?"
+                staff_params.append(selected_department)
+
+            staff = db.execute(staff_query, staff_params).fetchall()
+
 
         except sqlite3.IntegrityError:
             flash("This mapping already exists!", "error")
@@ -48,7 +74,11 @@ def mapping(app):
 
         return render_template(
             "staff/mapping.html",
-            staff_list=staff_list,
-            subject_list=subject_list,
-            mappings=mappings
+            staff_list          =staff_list,
+            subject_list        = subject_list,
+            selected_department = selected_department,
+            selected_semester   = selected_semester,
+            selected_staff      = selected_staff,
+            selected_subject    = selected_subject,
+            mappings            = mappings
         )   

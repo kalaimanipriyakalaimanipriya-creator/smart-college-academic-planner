@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
+<head>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
 <script>
 function validateForm() {
     let semester = document.getElementById("semester").value.trim();
@@ -45,27 +49,37 @@ function validateForm() {
 <br />
 <br />
 <br />
+<!-- 
+<div border="1" cellpadding="8">
+    {% if department %} 
+    {% endif %}
+    
+    {% if semester %}
+    {% endif %}
+</div> -->
+
+{% if searched and not grid %}
+<p>No timetable available.</p>
+{% endif %}
 
 {% if grid %}
-<table border="1" cellpadding="8">
-    <tr>
-        <th>DAY / TIME</th>
-        {% for t in time_map.values() %}
-            <th>{{ t }}</th>
-        {% endfor %}
-    </tr>
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>DAY / TIME</th>
+            {% for t in time_map.values() %}
+                <th>{{ t }}</th>
+            {% endfor %}
+        </tr>
 
-    {% for day, periods in grid.items() %}
-    <tr>
-        <th>{{ day }}</th>
-        {% for subject in periods.values() %}
-            <td>{{ subject if subject else "-" }}</td>
+        {% for day, periods in grid.items() %}
+        <tr>
+            <th>{{ day }}</th>
+            {% for subject in periods.values() %}
+                <td>{{ subject if subject else "-" }}</td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-<p>No timetable available.</p>
+    </table>
 {% endif %}
 
 <br />
@@ -73,6 +87,9 @@ function validateForm() {
 <br />
 <br />
 <br />
+
+
+<a href="{{ url_for('home') }}">Back to Home</a>
 <br />
 
 

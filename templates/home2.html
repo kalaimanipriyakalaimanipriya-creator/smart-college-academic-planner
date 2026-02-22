@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart College Academic Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert {{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h1>Smart College Academic Planner</h1>
+
+<ul>
+    <li>
+        <a href="{{ url_for('login') }}">
+            Staff Login
+        </a>
+    </li>
+
+    <li>
+        <!-- TODO change the function nam here later -->
+        <a href="{{ url_for('student_view') }}"> 
+            Guest User (Student)
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('staff_register') }}">
+            Staff Profile Creation
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('staff_mapping') }}">
+            Staff - Subject Mapping
+        </a>
+    </li>
+
+</ul>
+
+</body>
+</html>

@@ -1,50 +1,539 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Smart College Academic Planner</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+    <link rel="stylesheet" href="../static/css/library/font.css">
+    <link rel="stylesheet" href="../static/css/library/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/library/swiper.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <script src="../static/js/library/bootstrap.min.js"></script>
+    <script src="../static/js/library/jquery.min.js"></script>
+    <script src="../static/js/library/swiper.min.js"></script>
 </head>
+
 <body>
+    <article>
+        <div class="navBar navBarTwo">
+            <nav id="navBarMain">
+                <div class="navSectionTwo navSection">
+                    <div id="jd-container"
+                        class="position-relative newsideNav w-100  pl-10px  h-100 d-flex pr-10px zIndex-2">
+                        <div class="w-100 d-flex  align-items-center my-5px justify-content-between">
+                            <div class="left_navbar d-flex">
+                                <div class="position-relative">
+                                    <a target="_blank" class="position-absolute w-100 h-100"
+                                        href="https://umayalwomenscollege.co.in/"></a>
+                                    <img class="college_logo cursor-pointer" src="../static/images/college_logo.png">
+                                </div>
+                                <div class="mx-3 d-grid align-content-around text-info-emphasis text-uppercase">
+                                    <p class="m-0 p-0">Smart College Academic
+                                        Planner</p>
+                                </div>
+                            </div>
+                            <div class="login">
+                                <article style="z-index: 4" name="userLogin" class="h-100   d-flex align-items-center">
+                                    <img style="transform: scale(0.7);" src="../static//images/loginImage.png">
+                                    <div class="loginDiv">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-none d-sm-block">Dear Guest</div>
+                                            <span class="mx-5px  d-none d-sm-inline-block"></span>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <div class="loginParent">
+                                                <button class="m-0 btn p-0 cursor-pointer" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal" onclick="loginClick('signup')">
+                                                    Sign Up
+                                                </button>
+                                            </div>
+                                            or
+                                            <div class="loginParent">
+                                                <button class="m-0 btn p-0 cursor-pointer" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal" onclick="loginClick('login')">
+                                                    Login
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert {{ category }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+        <main class="textHomeMain firstFold">
+            <section id="jd-container"
+                class="px-0 d-flex align-items-center firstfoldBlock mx-5 position-relative zIndex-1">
+                <div class="d-flex firstfoldBlockView justify-content-center align-items-center px-20px w-100">
+                    <div class="leftBlock position-relative mt-10px ">
+                        <div class="contentWrapper p-5">
+                            <div class="college_name">
+                                <div class="collegeName">Dr.Umayal Ramanathan College For Women</div>
+                            </div>
+                            <h1 class="heading1 firstFoldHeadingTrans text-center z-index-1" style="max-width:670px">
+                                Create <div class="parent_o"
+                                    style="display: inline-block;
+                                            overflow: hidden;height: 62px;text-align: left;vertical-align: top;width:480px;">
+                                    <div class="class_o firstFoldHeadingContent text-light-emphasis"
+                                        style="transform: translateY(0px);">
+                                        Academic Excellence</div>
+                                    <div class="class_o" style="opacity: 0;">Women Empowerment</div>
+                                </div>
+                            </h1>
+                            <div class="about my-5">
+                                <h1 class="text-black-50">About URCW</h1>
+                                <div class="about_content d-flex">
+                                    <div class="serviceParent">
+                                        <section class="cardParent">
+                                            <div>
+                                                <div class="headingContent text-light-emphasis">Established in 2006, Dr.
+                                                    Umayal Ramanathan
+                                                    College for Women, affiliated with
+                                                    Alagappa University, holds a A grade
+                                                    accreditation from NAAC, with 3.22 points out of 4 in its second
+                                                    cycle.
+                                                    In March
+                                                    2025, it gained recognition under
+                                                    sections 2(f) and 12(B) of the UGC Act 1956. Situated in a tranquil
+                                                    15-acre
+                                                    campus at the heart of Karaikudi, the
+                                                    college is easily accessible.</div>
+                                            </div>
+                                        </section>
+                                        <section class="cardParent">
+                                            <div>
+                                                <div class="headingContent text-light-emphasis">The founding of Dr.
+                                                    Umayal Ramanathan
+                                                    College
+                                                    for Women fulfills Dr. Mrs. Umayal
+                                                    Ramanathan’s fervent aspiration to
+                                                    address the evolving needs of women in the community and equip them
+                                                    for
+                                                    the
+                                                    challenges of contemporary society.</div>
+                                            </div>
+                                        </section>
+                                        <section class="cardParent">
+                                            <div>
+                                                <div class="headingContent text-light-emphasis">Offering 13
+                                                    undergraduate, 5 postgraduate, 2
+                                                    M.Phil, and a PG Diploma course
+                                                    tailored for female students, the college
+                                                    is dedicated to providing holistic education and instilling a
+                                                    disciplined
+                                                    approach to academic pursuits. It offers a
+                                                    diverse array of academic disciplines, internships, corporate
+                                                    collaborations,
+                                                    and cutting-edge infrastructure to foster
+                                                    academic excellence.</div>
+                                            </div>
+                                        </section>
+                                        <section class="cardParent">
+                                            <div>
+                                                <div class="headingContent text-light-emphasis">In addition to the
+                                                    academic curriculum, the
+                                                    college designs and executes
+                                                    programs to enhance students’ employability and
+                                                    entrepreneurial skills, ensuring their readiness for the
+                                                    professional
+                                                    world.</div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div style="width: 50%;height: 50%;" class="image_home">
+                                        <img src="../static/images/background.JPEG">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-<h1>Smart College Academic Planner</h1>
+        <main class="course_block secondFold d-grid justify-content-center my-5">
+            <section class="d-flex justify-content-center">
+                <img style="width: 50px;height: 50px;" src="../static/images/courses/bachelor.png">
+                <h1 class="text-center">Courses</h1>
+            </section>
+            <div class="serviceCourseParent">
+                <section class="bachelor blocksborder">
+                    <section class="cardCourseParent bachelorChild">
+                        <div>
+                            <div class="headingCourseParent">Bachelor Courses</div>
+                            <div class="headCourseSplitLine my-2"></div>
+                            <section class="d-flex">
+                                <div>
+                                    <p class="headingCourseContent">🎓B.A English</p>
+                                    <p class="headingCourseContent">🎓B.A Tamil</p>
+                                    <p class="headingCourseContent">🎓B.Com (Computer Applications)</p>
+                                    <p class="headingCourseContent">🎓B.Com General</p>
+                                    <p class="headingCourseContent">🎓B.Sc (Information Technology)</p>
+                                </div>
+                                <div class="mx-4">
+                                    <p class="headingCourseContent">🎓B.Sc (Physics)</p>
+                                    <p class="headingCourseContent">🎓B.Sc (Mathematics)</p>
+                                    <p class="headingCourseContent">🎓B.Sc (Computer Science)</p>
+                                    <p class="headingCourseContent">🎓B.Sc (Electronics and Communication)</p>
+                                    <p class="headingCourseContent">🎓B.Sc (Bio-Technology)</p>
+                                </div>
+                                <div>
+                                    <p class="headingCourseContent">🎓B.B.A</p>
+                                    <p class="headingCourseContent">🎓B.Sc (Microbiology & Clinical Lab Technology)</p>
+                                    <p class="headingCourseContent">🎓B.Sc (Physical Education)</p>
+                                    <p class="headingCourseContent">🎓B.Com (Apprenticeship & Embedded Programme)</p>
+                                    <p class="headingCourseContent">🎓B.C.A</p>
+                                </div>
+                            </section>
+                        </div>
+                        <img style="width: 250px;height: 250px;" src="../static/images/courses/master.png">
+                    </section>
+                </section>
+                <section class="d-flex">
+                    <section class="master blocksborder">
+                        <section class="cardCourseParent masterChild">
+                            <div>
+                                <div class="headingCourseParent">Master Courses</div>
+                                <div class="headCourseSplitLine my-2"></div>
+                                <section class="d-flex">
+                                    <div>
+                                        <p class="headingCourseContent">🎓M.Sc (Information Technology)</p>
+                                        <p class="headingCourseContent">🎓M.Sc (Mathematics)</p>
+                                        <p class="headingCourseContent">🎓M.Sc (Computer Science)</p>
+                                    </div>
+                                    <div class="mx-3">
+                                        <p class="headingCourseContent">🎓M.A (English Literature)</p>
+                                        <p class="headingCourseContent">🎓M.Sc Environmental Science</p>
+                                        <p class="headingCourseContent">🎓M.Com (Computer Applications)</p>
+                                    </div>
+                                </section>
+                            </div>
+                            <img style="width: 250px;height: 250px;" src="../static/images/courses/masters_new.png">
+                        </section>
+                    </section>
+                    <section class="research blocksborder">
+                        <section class="cardCourseParent researchChild">
+                            <div>
+                                <div class="headingCourseParent">Research Courses</div>
+                                <div class="headCourseSplitLine my-2"></div>
+                                <p class="headingCourseContent">🎓M.Phil COMMERCE</p>
+                                <p class="headingCourseContent">🎓M.Phil COMPUTER SCIENCE</p>
+                            </div>
+                            <img style="width: 250px;height: 250px;" src="../static/images/courses/research.png">
+                        </section>
+                    </section>
+                </section>
 
-<ul>
-    <li>
-        <a href="{{ url_for('login') }}">
-            Staff Login
-        </a>
-    </li>
+            </div>
+        </main>
 
-    <li>
-        <!-- TODO change the function nam here later -->
-        <a href="{{ url_for('student_view') }}"> 
-            Guest User (Student)
-        </a>
-    </li>
+        <main class="thirdFold departments py-4">
+            <div class="text-center departmentParent" id="jd-container">
+                <h2 class="heading2 mb-20px text-uppercase"><span class="heading2">departments</span>
+                </h2>
+                <p class="mb-20px h1subtitle">Building Careers Through Strong Departments</p>
+                <ul class="tabBlocksFirstFold my-5 d-flex align-items-start justify-content-between">
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/icons8-business-100.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Business Administration</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/micro.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Biotechnology</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/image3625.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Commerce</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/icons8-microscope-100.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Microbiology & Clinical Lab Technology</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/commerce.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Commerce with Computer Application</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/maths.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Mathematics</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/it.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Information Technology</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/computer.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Computer Science</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/ece.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Electronics and Communication</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/english.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">English</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/physics.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Physics</span>
+                    </li>
+                    <li
+                        class="tab position-relative focusTabs cursor-pointer d-flex flex-column justify-content-center align-items-center gap-10">
+                        <div class="scoreProgress scoreProgressMain position-relative p-0 blockBorderRadius over50 p66">
+                            <img class="departmentImages" src="../static/images/departments/tamil.png">
+                        </div>
+                        <span class="font-weight-700 font-monospace my-1">Tamil
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </main>
 
-    <li>
-        <a href="{{ url_for('staff_register') }}">
-            Staff Profile Creation
-        </a>
-    </li>
+        <main class="fourthFold p-5">
+            <section>
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
 
-    <li>
-        <a href="{{ url_for('staff_mapping') }}">
-            Staff - Subject Mapping
-        </a>
-    </li>
+                            <img class="swiperImage" src="../static/images/college_photos/7.jpeg">
 
-</ul>
+                        </div>
+                        <div class="swiper-slide">
 
+                            <img class="swiperImage" src="../static/images/college_photos/5.jpeg">
+
+                        </div>
+                        <div class="swiper-slide">
+
+                            <img class="swiperImage" src="../static/images/college_photos/collegePhoto6.jpg">
+
+                        </div>
+                        <div class="swiper-slide">
+
+                            <img class="swiperImage" src="../static/images/college_photos/new_college3.jpg">
+
+                        </div>
+                        <div class="swiper-slide">
+
+                            <img class="swiperImage" src="../static/images/college_photos/new_college5.jpg">
+
+                        </div>
+                        <div class="swiper-slide">
+
+                            <img class="swiperImage" src="../static/images/college_photos/new_college6.jpg">
+
+                        </div>
+                        <div class="swiper-slide">
+
+                            <img class="swiperImage" src="../static/images/college_photos/new_college7.jpg">
+
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </section>
+        </main>
+    </article>
+
+
+
+    <!-- modal -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div data-bs-dismiss="modal" aria-label="Close" style="position: absolute;top: 0;right: -46px;">
+                        <div class="cursor-pointer border-light p-5px d-flex loginClosebtn justify-content-center w-fit border-radius-50"
+                            style="background: rgb(39 43 46);border-radius: 50px;padding: 7px;cursor: pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20" width="15" viewBox="0 0 384 512" style="
+                            height: 20px !important;width: 20px !important;fill: white;">
+                                <path
+                                    d="M55.1 73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L147.2 256 9.9 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192.5 301.3 329.9 438.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.8 256 375.1 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192.5 210.7 55.1 73.4z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="login-cards">
+                        <h5 class="modal-title mx-5" id="exampleModalLabel" style="color: #6b616a">Select Your Role</h5>
+                        <div class=" chooseUser my-5 d-flex justify-content-around flex-wrap">
+                            <div id="studentLogin" class="loginCard text-center">
+                                <div class="loginParentImages">
+                                    <img class="loginImages" src="../static/images/loginImages/student.png">
+                                </div>
+                                <h4>Student</h4>
+                            </div>
+
+                            <div id="staffLogin" class="loginCard text-center">
+                                <div class="loginParentImages">
+                                    <img class="loginImages" src="../static/images/loginImages/teacher.png">
+                                </div>
+                                <h4>Staff</h4>
+                            </div>
+
+                            <div id="adminLogin" class="loginCard text-center">
+                                <div class="loginParentImages">
+                                    <img class="loginImages" src="../static/images/loginImages/admin.png">
+                                </div>
+                                <h4>Admin</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="registerModal userModal" style="display: none;">
+                        <div class="register-container container">
+                            <div class="d-flex">
+                                <section>
+                                    <h3 class="register-title">Create Your Account</h3>
+                                    <form id="registerForm">
+                                        <div class="row g-3">
+
+                                            <!-- Username -->
+                                            <div class="col-md-6">
+                                                <label class="form-label">Username</label>
+                                                <input type="text" class="form-control userNameRegister" placeholder="Choose a username">
+                                            </div>
+
+                                            <!-- Password -->
+                                            <div class="col-md-6">
+                                                <label class="form-label">Password</label>
+                                                <input type="password" class="passwordRegister form-control"
+                                                    placeholder="Create a password">
+                                            </div>
+
+                                            
+                                            <!-- Full Name -->
+                                            <div class="col-md-6">
+                                                <label class="form-label">Full Name</label>
+                                                <input type="text" class="fullnameRegister form-control"
+                                                    placeholder="Enter your full name">
+                                            </div>
+
+                                            <!-- Email -->
+                                            <div class="col-md-6">
+                                                <label class="form-label">Email Address</label>
+                                                <input type="email" class="emailRegister form-control" placeholder="Enter your email">
+                                            </div>
+
+                                            <!-- Department -->
+                                            <div class="col-md-6">
+                                                <label class="form-label">Department</label>
+                                                <select  class="departmentRegister form-select">
+                                                    <option selected>Select Department</option>
+                                                    <option>BSC IT</option>
+                                                    <option>BSC CS</option>
+                                                    <option>BCA</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6 registerNumber">
+                                                <label class="form-label">Register No</label>
+                                                <input type="text" class="form-control regNo"
+                                                    placeholder="Enter your Register number">
+                                            </div>
+
+                                            <!-- Designation -->
+                                            <div class="col-md-6 designation">
+                                                <label class="form-label">Designation</label>
+                                                <select class="designationRegister form-select">
+                                                    <option selected>Select Designation</option>
+                                                    <option>Assistant Professor</option>
+                                                    <option>Professor</option>
+                                                    <option>Associate Professor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="my-4 login-btn">
+                                            Register
+                                        </button>
+                                    </form>
+                                </section>
+                                <div class="loginPageBackgroundImage">
+                                    <img class="w-100 h-100" src="../static/images/background.JPEG">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loginModal userModal" style="display: none;">
+                        <div class="login-container container">
+                            <div class="d-flex">
+                                <section>
+                                    <h3 class="login-title">Login to Your Account</h3>
+                                    <form id="loginForm">
+                                        <div class="input-group userNameParent">
+                                            <label>User Name</label>
+                                            <input class="usernameLogin" type="text" id="loginUsername" placeholder="Enter your Username">
+                                        </div>
+                                        <div class="input-group regNoParent">
+                                            <label>Register Number</label>
+                                            <input class="regnoLogin" type="text" id="regnoLogin" placeholder="Enter your Register Number">
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label>Password</label>
+                                            <input class="passwordLogin" type="password" placeholder="Enter your password" required>
+                                        </div>
+
+                                        <div class="options">
+                                            <a href="#">Forgot Password?</a>
+                                        </div>
+
+                                        <button type="submit" class="login-btn">Login</button>
+                                    </form>
+                                </section>
+                                <div class="loginPageBackgroundImage">
+                                    <img class="w-100 h-100" src="../static/images/background.JPEG">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/script.js"></script>
 </body>
+
 </html>

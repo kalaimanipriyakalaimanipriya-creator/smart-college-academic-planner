@@ -5,7 +5,6 @@ def student_routes(app):
 
     @app.route("/student", methods=["GET", "POST"])
     def student_view():
-        grid = None
 
         time_map = {
             1: "10:00-10:50",
@@ -14,8 +13,11 @@ def student_routes(app):
             4: "1:30-2:30",
             5: "2:30-3:30"
         }
-
+        grid = {}
+        searched = False
+        
         if request.method == "POST":
+            searched = True
             rows = query_db("""
                 SELECT day, period, subject_name
                 FROM timetable
@@ -42,13 +44,15 @@ def student_routes(app):
 
             # 🔹 fill grid
             for day, period, subject in rows:
-                day = day.upper() 
+                day = day.upper()
                 grid[day][period] = subject
 
         return render_template(
             "student_view.html",
-            grid=grid,
-            time_map=time_map
+            grid     = grid,
+            time_map = time_map,
+            searched = searched,
+            mapping = mapping
         )
     
     # def student_view_V1():
