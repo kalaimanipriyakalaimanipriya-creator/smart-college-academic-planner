@@ -5,6 +5,7 @@ from staff import staff_routes
 from student import student_routes
 from timetable import timetable_routes
 from mapping import mapping
+from admin import admin_routes
 
 app = Flask(__name__)
 app.secret_key = "smart_timetable_secret"
@@ -32,6 +33,7 @@ staff_routes(app)
 student_routes(app)
 timetable_routes(app)
 mapping(app)
+admin_routes(app)
 
 if __name__ == "__main__":
     # run once, then comment / uncomment - next 2 lines

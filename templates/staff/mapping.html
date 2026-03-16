@@ -219,13 +219,15 @@
 <h3>Existing Mappings</h3>
 
 <table border="1" cellpadding="5">
+
     <tr>
         <th>Staff</th>
         <th>Subject</th>
         <th>Department</th>
         <th>Semester</th>
     </tr>
-
+    
+    <tbody>
     {% for map in mappings %}
     <tr>
         <td>{{ map.name }}</td>
@@ -234,6 +236,8 @@
         <td>{{ map.semester }}</td>
     </tr>
     {% endfor %}
+    </tbody>
+    
 
 </table>
 

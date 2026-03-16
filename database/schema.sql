@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS student (
     email TEXT NOT NULL UNIQUE,
     regNo TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
-    department TEXT
+    department TEXT,
+    image TEXT
 );
 
 CREATE TABLE IF NOT EXISTS subjects (
@@ -21,7 +22,8 @@ CREATE TABLE IF NOT EXISTS subjects (
     subject_name TEXT,
     subject_type TEXT, -- theory / lab
     hours_per_week INTEGER,
-    semester_id INTEGER
+    semester_id INTEGER,
+    UNIQUE (department, semester, subject_name)
 );
 
 CREATE TABLE IF NOT EXISTS timetable (
@@ -35,7 +37,7 @@ CREATE TABLE IF NOT EXISTS timetable (
     FOREIGN KEY (subject_id) REFERENCES subjects(id),
     FOREIGN KEY (staff_id) REFERENCES staff(id)
 );
-CREATE UNIQUE INDEX idx_unique_slot
+CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_slot
 ON timetable(department, semester, day, period);
 
 
@@ -46,7 +48,8 @@ CREATE TABLE IF NOT EXISTS staff (
     username TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     department TEXT,
-    designation TEXT
+    designation TEXT,
+    image TEXT
 );
 
 
@@ -65,4 +68,25 @@ CREATE TABLE IF NOT EXISTS staff_subject_map (
     FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
+CREATE TABLE IF NOT EXISTS college_overview (
+    id INTEGER PRIMARY KEY,
+    total_student INTEGER DEFAULT 0,
+    total_staff INTEGER DEFAULT 0,
+    total_department INTEGER DEFAULT 0,
+    total_course INTEGER DEFAULT 0,
+    total_placement INTEGER DEFAULT 0
+);
 
+INSERT OR IGNORE INTO college_overview
+(id, total_student, total_staff, total_department, total_course, total_placement)
+VALUES (1, 0, 0, 0, 0, 0);
+
+CREATE TABLE IF NOT EXISTS admin (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+);
+
+INSERT OR IGNORE INTO admin (id, name, username, password)
+VALUES (1, 'Administrator', 'admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9');

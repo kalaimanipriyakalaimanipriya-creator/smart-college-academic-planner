@@ -46,6 +46,15 @@ def query_db(query, args=(), one=False):
     db = get_db()
     cur = db.execute(query, args)
     db.commit()
+    
+    
+        # For SQLite (replaces '?' with quoted args)
+    # test_query = query
+    # for arg in args:
+    #     test_query = test_query.replace('?', f"'{arg}'", 1)
+
+    # print(f"SQL for testing: {test_query}")
+
     rv = cur.fetchall()
     cur.close()
     return (rv[0] if rv else None) if one else rv

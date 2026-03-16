@@ -138,59 +138,101 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     const userName = $('.usernameLogin').val();
     const regNo = $('.regnoLogin').val();
     const Password = $('.passwordLogin').val();
+    const role = userData.userType;
     userData.userType = userData.userType == 'staff' ? 'staff' : regNo
 
-    fetch("/login",{
-        method:"POST",
+    fetch("/login", {
+        method: "POST",
         headers: {
-            "Content-Type":"application/json"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            password: Password,            
+            password: Password,
             userName: userName ? userName : '',
             regNo: regNo ? regNo : '',
-            userType: userData.userType
+            userType: userData.userType,
+            role: role
         })
     }).then(res => res.json()).then(data => {
-            let location = window.location.origin + '/dashboard'
-            if(data.success) window.location.href = location 
-        })
+        let location = window.location.origin + '/academic-planner/dashboard'
+        if (data.success) window.location.href = location
+    })
 })
 
+// document.getElementById('registerForm').addEventListener('submit', (e) => {
+//     e.preventDefault();
+
+//     const formData = new FormData();
+
+//     const fullName = $('.fullnameRegister').val();
+//     const password = $('.passwordRegister').val();
+//     const email = $('.emailRegister').val();
+//     const department = $('.departmentRegister').val();
+//     const userName = $('.userNameRegister').val();
+//     const designation = $('.designationRegister').val();
+//     const regNo = $('.regNo').val();
+
+//     userData.userType = userData.userType == 'staff' ? 'staff' : regNo
+//     fetch("/register", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({
+//             fullName: fullName,
+//             password: password,
+//             email: email,
+//             department: department,
+//             userName: userName,
+//             // regNo: regNo ? regNo : '',
+//             designation: designation ? designation : '',
+//             userType: userData.userType
+//         })
+//     }).then(res => res.json()).then(data => {
+//         let location = window.location.origin + '/academic-planner/home'
+//         if (data.success)
+//             alert('user registration success, please login')
+//         window.location.href = location
+//     })
+
+// })
 document.getElementById('registerForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const fullName = $('.fullnameRegister').val();
-    const password = $('.passwordRegister').val();
-    const email    = $('.emailRegister').val();
 
-    const department  = $('.departmentRegister').val();
-    const userName    = $('.userNameRegister').val();
-    const designation = $('.designationRegister').val();
-    const regNo = $('.regNo').val();
+    const formData = new FormData();
 
-    userData.userType = userData.userType == 'staff' ? 'staff' : regNo
-    fetch("/register",{
-        method:"POST",
-        headers: {
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify({
-            fullName: fullName,
-            password: password,
-            email: email,
-            department: department,
-            userName: userName,
-            // regNo: regNo ? regNo : '',
-            designation: designation ? designation : '',
-            userType: userData.userType
-        })
-    }).then(res => res.json()).then(data => {
-            let location = window.location.origin + '/academic-planner/home'
-            if(data.success)
-                alert('user registration success, please login')
-                window.location.href = location
-        })
+    formData.append("fullName", $('.fullnameRegister').val());
+    formData.append("password", $('.passwordRegister').val());
+    formData.append("email", $('.emailRegister').val());
+    formData.append("department", $('.departmentRegister').val());
+    formData.append("userName", $('.userNameRegister').val());
+    formData.append("designation", $('.designationRegister').val());
+    formData.append("regNo", $('.regNo').val());
+    formData.append("userType", userData.userType);
 
-})
+    userData.userType = (userData.userType == 'staff') ? 'staff' :  $('.regNo').val()
+
+    // ✅ Get image file
+    const imageFile = document.querySelector('input[name="image"]').files[0];
+    formData.append("image", imageFile);
+
+    console.log('printing at js- ----------->')
+    console.log(Object.fromEntries(formData.entries()));
+
+
+    fetch("/register", {
+        method: "POST",
+        body: formData
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert("User registration success, please login");
+                window.location.href = "/academic-planner/home";
+            } else {
+                alert(data.message);
+            }
+        });
+});
 
 animateData();

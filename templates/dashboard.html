@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="../static/css/library/font.css">
     <link rel="stylesheet" href="../static/css/library/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/library/swiper.min.css">
+    <link rel="stylesheet" href="../static/css/library/izitoast.css">
     <link rel="stylesheet" href="../static/css/dashboard.css">
 
     <script src="../static/js/library/bootstrap.min.js"></script>
     <script src="../static/js/library/jquery.min.js"></script>
     <script src="../static/js/library/swiper.min.js"></script>
+    <script src="../static/js/library/izitoast.js"></script>
 </head>
 
-<body onload="initializeFunction()">
+<body onload="initializeFunction()" role={{role}}>
     <article class="d-flex parentDashboard p-3">
         <section class="leftDashboard page-with-super-sidebar">
             <aside class="mainSideBarPanel gap-2">
@@ -40,20 +42,129 @@
                             Academic Tools
                         </span>
                     </div>
-                    <div class="dashboardMenus">
-                        <div class="font-13 lh-initial d-flex my-3 mx-2  font-weight-700 breakWord">
+                    <div class="dashboard_Menus">
+                        <div class="my-3 mx-2 d-flex dashboard_dashboard dashboard_menu_active dashboard_menu"
+                            onclick="current_dashboard('dashboard_parent','dashboard_dashboard')">
                             <img src="../static/images/dashboard/dashboard_pic2.png" style="width: 50px;height: 50px;">
                             <div class="d-grid align-content-center mx-2">Dashboard</div>
                         </div>
-                        <div class="font-13 lh-initial d-flex my-3 mx-2  font-weight-700 breakWord">
-                            <img src="../static/images/dashboard/dashboard_image.png" style="width: 50px;height: 50px;">
-                            <div class="d-grid align-content-center mx-2">Academic Planner</div>
+                        <div class="my-3 mx-2 dashboard_menu">
+                            <section class="crown_circle">
+                                <div data-bs-toggle="collapse" data-bs-target="#multiCollapse3" aria-expanded="false"
+                                    aria-controls="multiCollapse3" class="planner_collapse2"
+                                    onclick="checkArrow('arrow_queens','planner_collapse2','crown_circle')">
+                                    <section class="d-flex justify-content-between ">
+                                        <div class="d-flex">
+                                            <img src="../static/images/dashboard/dashboard_queen.png"
+                                                style="width: 50px;height: 50px;">
+                                            <div class="d-grid align-content-center mx-2">Crown Circle</div>
+                                        </div>
+                                        <div class=" d-flex justify-content-end mx-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="rotate_right"
+                                                id="arrow_queens" viewBox="0 0 50 50" width="30" height="50">
+                                                <path xmlns="http://www.w3.org/2000/svg"
+                                                    d="M7 10.5a1 1 0 0 1 .707.293L16 19.086l8.293-8.293a1 1 0 0 1 1.414 1.414L16 21.914l-9.707-9.707A1 1 0 0 1 7 10.5Z" />
+                                            </svg>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="collapse" id="multiCollapse3">
+                                            <div class="card card-body p-0">
+                                                <div style="box-shadow: none!important;"
+                                                    class="planner-item  py-2 student_circle_sub dashboard_menu"
+                                                    onclick="current_dashboard('student_planner','student_circle_sub')">
+                                                    <span>Students</span>
+                                                </div>
+                                                <div style="box-shadow: none!important;"
+                                                    class="planner-item staff_circle_sub dashboard_menu"
+                                                    onclick="current_dashboard('staff_planner','staff_circle_sub')">
+                                                    <span>Staffs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
-                        <div class="font-13 lh-initial d-flex my-3 mx-2 font-weight-700 breakWord">
-                            <img src="../static/images/dashboard/dashboard_timer.png" style="width: 50px;height: 50px;">
-                            <div class="d-grid align-content-center mx-2">Timetable</div>
+                        <div class="my-3 mx-2 dashboard_menu">
+                            <section class="academic_planner">
+                                <div data-bs-toggle="collapse" data-bs-target="#multiCollapse1" aria-expanded="false"
+                                    aria-controls="multiCollapse1" class="planner_collapse"
+                                    onclick="checkArrow('arrow_planner','planner_collapse','academic_planner')">
+                                    <section class="d-flex justify-content-between ">
+                                        <div class="d-flex">
+                                            <img src="../static/images/dashboard/dashboard_image.png"
+                                                style="width: 50px;height: 50px;">
+                                            <div class="d-grid align-content-center mx-2">Academic Planner</div>
+                                        </div>
+                                        <div class=" d-flex justify-content-end mx-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="rotate_right"
+                                                id="arrow_planner" viewBox="0 0 50 50" width="30" height="50">
+                                                <path xmlns="http://www.w3.org/2000/svg"
+                                                    d="M7 10.5a1 1 0 0 1 .707.293L16 19.086l8.293-8.293a1 1 0 0 1 1.414 1.414L16 21.914l-9.707-9.707A1 1 0 0 1 7 10.5Z" />
+                                            </svg>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="collapse" id="multiCollapse1">
+                                            <div class="card card-body p-0">
+                                                <div style="box-shadow: none!important;"
+                                                    class="admin_user d-none planner-item  py-2 add_sub dashboard_menu"
+                                                    onclick="current_dashboard('add_subjects','add_sub')">
+                                                    <span>Add Subjects</span>
+                                                </div>
+                                                <div style="box-shadow: none!important;"
+                                                    class="planner-item staff_sub dashboard_menu"
+                                                    onclick="current_dashboard('staff_subject_mapping','staff_sub')">
+                                                    <span>Staff Subject Mapping</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
-                        <div class="font-13 lh-initial d-flex my-3 mx-2 font-weight-700 breakWord">
+                        <div class=" my-3 mx-2 dashboard_menu">
+                            <section class="time_table">
+                                <div data-bs-toggle="collapse" data-bs-target="#multiCollapse2" aria-expanded="false"
+                                    aria-controls="multiCollapse2" class="timeTable_collapse"
+                                    onclick="checkArrow('arrow_timetable','timeTable_collapse','time_table')">
+                                    <section class="d-flex justify-content-between">
+                                        <div class="d-flex">
+                                            <img src="../static/images/dashboard/dashboard_timer.png"
+                                                style="width: 50px;height: 50px;">
+                                            <div class="d-grid align-content-center mx-2">Timetable</div>
+                                        </div>
+                                        <div class="w-100 d-flex justify-content-end mx-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="rotate_right"
+                                                id="arrow_timetable" viewBox="0 0 50 50" width="30" height="50">
+                                                <path xmlns="http://www.w3.org/2000/svg"
+                                                    d="M7 10.5a1 1 0 0 1 .707.293L16 19.086l8.293-8.293a1 1 0 0 1 1.414 1.414L16 21.914l-9.707-9.707A1 1 0 0 1 7 10.5Z" />
+                                            </svg>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="collapse" id="multiCollapse2">
+                                            <div class="card card-body p-0">
+                                                <div style="box-shadow: none!important;"
+                                                    class="planner-item py-2 dashboard_menu dashboard_timetable"
+                                                    onclick="current_dashboard('timetable_planner','dashboard_timetable')">
+                                                    <span>View Timetable</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="my-3 mx-2 d-flex dashboard_menu dashboard_assignment d-none"
+                            onclick="current_dashboard('assignments_planner','dashboard_assignment')">
                             <img src=" ../static/images/dashboard/dashboard_images.png"
                                 style="width: 50px;height: 50px;">
                             <div class="d-grid align-content-center mx-2">Assignments</div>
@@ -63,17 +174,17 @@
             </aside>
         </section>
         <section class="rightDashboard mx-3 mainBarPanel w-100">
-            <ul class="routeUi breadcrumb">
+            <ul class="routeUi text-capitalize breadcrumb">
                 <li class="breadCrumbItem">
                     <span class="d-block ellipsis breadCrumbsLastName">URCW</span>
                 </li>
             </ul>
             <section class="w-100 h-100 dashboardContent" style="background-color: #fbfafd;">
-                <section class="dashboard_parent d-none">
+                <section class="dashboard_parent dashboard ">
                     <div class="firstBlock m-4 p-3">
                         <div class="d-flex">
                             <div class="current_time">
-                                <div class="morning">
+                                <div class="morning d-none current_Greeting">
                                     <svg xmlns="http://www.w3.org/2000/svg" id="sprite-cmorning" viewBox="0 0 150 150"
                                         width="100" height="100">
                                         <path fill="#FFE121"
@@ -109,11 +220,11 @@
                                         <path fill="#FFF"
                                             d="M17.424 12.968s-1.856 1.596-3.99 4.454a31.705 31.705 0 0 0-3.134 5.151c-.47.991-.918 2.03-1.283 3.117a33.004 33.004 0 0 0-.919 3.342 26.45 26.45 0 0 0-.469 3.396c-.084 1.229-.098 2.253.012 3.339.049 1.081.229 2.121.415 3.104.178.988.419 1.912.661 2.764.236.854.501 1.626.738 2.313.234.689.477 1.278.667 1.771.397.976.655 1.531.655 1.531s-.436-.434-1.065-1.303a18.406 18.406 0 0 1-1.065-1.618c-.399-.639-.771-1.399-1.169-2.239a24.847 24.847 0 0 1-1.05-2.817c-.283-1.033-.548-2.141-.689-3.314-.154-1.161-.158-2.482-.104-3.621.1-1.29.29-2.484.563-3.72a23.228 23.228 0 0 1 1.106-3.56c.458-1.14.961-2.24 1.554-3.244a26.09 26.09 0 0 1 3.794-5.055 23.818 23.818 0 0 1 3.355-2.898c.878-.611 1.417-.893 1.417-.893z"
                                             opacity=".7" />
-                                        <path fill="#FFF"
+                                        <path fill="#FFF" id="cloudAnim"
                                             d="M23.305 69.248h31.869s5.646 0 8.312-2.445c0 0 4.158-2.56 2.333-7.515-1.395-3.789-5.368-3.605-5.368-3.605s-4.124-15.801-18.569-16.038c-14.445-.236-19.005 9.475-19.084 11.606 0 0-4.87-1.986-9.683 3.604-3.126 3.632-3.399 14.393 10.19 14.393z" />
                                     </svg>
                                 </div>
-                                <div class="evening d-none">
+                                <div class="evening d-none current_Greeting">
                                     <svg xmlns="http: //www.w3.org/2000/svg" id="sprite-cevening" viewBox="0 0 150 150"
                                         width="100" height="100">
                                         <path fill="#FFE121"
@@ -153,256 +264,402 @@
                                             d="m109.786 104.999 9.022-8.581 26.809.544-7.008 9.117-28.032-.545s-1.226-.206-1.226 1.021v3.521s-.033.97 1.021 1.003c1.055.034 28.404.272 28.404.272l5.647-8.98-.442-.104-.051-.373 1.957.102-6.746 10.266-29.162-.553s-1.183.009-1.183-1.539v-3.684c.003 0 .183-.961.99-1.487z" />
                                     </svg>
                                 </div>
+                                <div class="night d-none current_Greeting">
+                                    <svg xmlns="http: //www.w3.org/2000/svg" id="sprite-cnight" viewBox="0 0 150 150"
+                                        width="100" height="100">
+                                        <path fill="#FFE121"
+                                            d="M104.482 14.521s21.636 7.974 36.104 28.896c11.99 17.339 13.462 44.397-3.405 59.024-16.277 14.113-37.94-.781-59.688 23.977-21.771 24.788-66.186 19.882-75.071-18.611-14.327-62.071 45.833-118.586 102.06-93.286z" />
+                                        <path fill="#FFF"
+                                            d="M30.292 42.595a20.802 20.802 0 0 1 6.177-15.768c-9.573 2.249-16.5 11.046-16.043 21.228.516 11.505 10.26 20.414 21.765 19.898a20.78 20.78 0 0 0 13.722-5.998 20.94 20.94 0 0 1-3.854.537c-11.507.517-21.252-8.392-21.767-19.897z" />
+                                        <path fill="#FFE121"
+                                            d="m109.143 42.165 1.13 2.069 2.071 1.132-2.071 1.132-1.13 2.069-1.131-2.069-2.071-1.132 2.071-1.132zm-92.75 31.911.925 1.694 1.693.923-1.693.927-.925 1.693-.926-1.693-1.693-.927 1.693-.923zm26.324-31.911.926 1.692 1.692.926-1.692.926-.926 1.692-.925-1.692-1.693-.926 1.693-.926z" />
+                                        <ellipse opacity=".3" fill="#424242" cx="128.867" cy="131.99" rx="11.059"
+                                            ry="2.409" />
+                                        <path fill="#47505E"
+                                            d="M136.666 130.908c-1.498.979-3.713 2.045-7.674 2.045-4.12 0-7.139-.689-8.479-1.766-5.645-4.528-4.638-13.278-4.638-13.278.121-2.804 4.181 2.387 12.683 1.759 5.393-.398 12.563-3.83 12.68-1.938.432 6.959-2.679 11.945-4.572 13.178z" />
+                                        <ellipse fill="#47505E" cx="128.559" cy="117.816" rx="12.68" ry="3.029" />
+                                        <ellipse fill="#FFF" cx="128.559" cy="117.668" rx="10" ry="1.829" />
+                                        <path fill="#47505E"
+                                            d="M140.15 120.727s6.369-.547 6.244 3.332c-.138 4.146-6.224 4.623-7.883 4.623-.771 0 .002-1.549 1.241-1.586 1.487-.046 4.274-.621 4.222-3.002-.027-1.208-2.156-2.021-3.896-1.398 0 0-1.551.176-1.566-.883-.014-.838 1.316-1.063 1.638-1.086z" />
+                                        <path fill="#58F4F4"
+                                            d="M103.311 49.07s11.896 11.413 21.986 17.92c0 0-5.818-10.987-9.178-12.622-3.359-1.636-12.808-5.298-12.808-5.298z" />
+                                        <path fill="#029793"
+                                            d="M122.461 49.605s-8.504-9.484-19.15-.535c0 0 9.978 5.677 21.986 17.92 0 0 5.955-9.001-2.836-17.385z" />
+                                        <path fill="#424242"
+                                            d="m148.906 76.495-26.11-27.235 1.442-1.385 25.481 26.577-.196 2.713z" />
+                                        <path fill="#029793"
+                                            d="M121.762 53.299a2.704 2.704 0 0 1-3.822.104 2.701 2.701 0 0 1-.104-3.823l3.449-3.645a2.703 2.703 0 0 1 3.821-.102 2.7 2.7 0 0 1 .105 3.822l-3.449 3.644z" />
+                                        <path fill="#424242"
+                                            d="M95.338 124.173h14.139s1.416 1.026.832 2.026c-.582 1-9.488 8.563-9.488 8.563l-5.483-10.589z" />
+                                        <path opacity=".5" fill="#FFF"
+                                            d="m46.329 93.55 56.981-44.479 21.986 17.92-42.779 69.177H47.321s-3.994.046-4.097-4.389l.024-33.739s-.075-1.677.819-2.995c.46-.679 1.518-1.027 2.262-1.495z" />
+                                        <path fill="#525A66"
+                                            d="M101.826 132.078a4.089 4.089 0 0 1-4.088 4.089H47.321a4.09 4.09 0 0 1-4.088-4.089v-34.56a4.09 4.09 0 0 1 4.088-4.09h50.417a4.089 4.089 0 0 1 4.088 4.09v34.56z" />
+                                        <circle fill="#C0CDF6" cx="72.53" cy="114.797" r="4.695" />
+                                        <path fill="#FFF" id="cloudAnim"
+                                            d="m56.976 41.034-1.356-2.478-2.478-1.356 2.478-1.355 1.356-2.479 1.355 2.479L60.81 37.2l-2.479 1.356zm-45.728 71.32-1.355-2.48-2.479-1.354 2.479-1.357 1.355-2.477 1.356 2.477 2.478 1.357-2.478 1.354zm116.02-24.07-1.356-2.477-2.478-1.357 2.478-1.354 1.356-2.48 1.355 2.48 2.479 1.354-2.479 1.357zM112.344 41.7l-.795-1.455-1.455-.795 1.455-.796.795-1.454.797 1.454 1.453.796-1.453.795zM40.099 85.116l-.795-1.455-1.455-.795 1.455-.796.795-1.454.796 1.454 1.454.796-1.454.795zM16.393 72.475l-.795-1.455-1.455-.795 1.455-.796.795-1.454.795 1.454 1.455.796-1.455.795z" />
+                                        <path fill="#57B228"
+                                            d="m26.916 104.538-1.728-2.425-.839-1.131c-.287-.405-.636-.799-.95-1.231-.326-.426-.702-.835-1.05-1.271-.386-.403-.723-.864-1.13-1.256-.387-.412-.769-.828-1.179-1.201a15.33 15.33 0 0 1-.588-.58l-.608-.525c-.199-.175-.402-.338-.588-.518-.202-.155-.4-.31-.593-.459-.388-.297-.746-.603-1.111-.83-.36-.235-.682-.481-.977-.688-.308-.174-.573-.346-.795-.485-.442-.283-.697-.465-.697-.465s.301.021.832.092c.264.037.59.08.96.154.36.094.764.221 1.202.371.45.131.906.34 1.377.587l.736.368c.242.141.472.311.715.469.491.316.985.662 1.437 1.073.483.38.907.831 1.338 1.274.438.44.801.941 1.184 1.412.359.488.68.994.982 1.481a16.48 16.48 0 0 1 1.353 2.823c.647 1.717.717 2.961.717 2.961zM28.393 104.538s-.491-1.61-.554-4.108c-.059-1.25.018-2.709.216-4.267.123-.772.238-1.579.432-2.382.224-.795.393-1.62.685-2.411.28-.794.572-1.583.934-2.332.168-.379.339-.754.526-1.114l.61-1.039c.207-.338.384-.683.603-.992.229-.306.454-.603.672-.892l.637-.835c.216-.262.461-.486.675-.717a25.4 25.4 0 0 1 1.216-1.201c.396-.322.755-.586 1.046-.805.585-.432.926-.659.926-.659s-.23.354-.644.94c-.209.289-.457.645-.756 1.031l-.879 1.395c-.342.492-.644 1.067-.971 1.666l-.505.916-.469.985-.484 1.015c-.138.354-.276.716-.43 1.07-.32.707-.568 1.456-.813 2.206-.296.731-.474 1.507-.708 2.248-.191.755-.406 1.495-.574 2.222-.138.731-.338 1.432-.45 2.109a72.822 72.822 0 0 0-.353 1.914c-.2 1.191-.35 2.2-.442 2.911-.103.712-.146 1.126-.146 1.126zM30.393 105.116s-.049-1.108.411-2.665c.207-.785.562-1.664 1.015-2.573.256-.437.473-.922.785-1.356.292-.448.606-.893.956-1.312.338-.427.708-.829 1.095-1.201.362-.397.796-.71 1.187-1.036.379-.342.815-.59 1.208-.841.199-.123.385-.251.578-.356l.578-.271a8.491 8.491 0 0 1 1.84-.675c.458-.12.722-.168.722-.168s-.193.201-.534.518c-.172.156-.376.35-.619.547-.228.217-.485.463-.766.729-.285.255-.579.543-.881.854-.304.31-.629.621-.944.969-.322.339-.647.69-.962 1.065-.321.367-.653.733-.953 1.13-.639.758-1.224 1.563-1.79 2.316-.252.396-.544.753-.782 1.116l-.695 1.022-1.449 2.188zM26.268 98.005s-.34-1.188-.75-2.918l-.724-2.927c-.122-.533-.281-1.074-.429-1.624-.138-.554-.306-1.104-.467-1.657-.141-.561-.355-1.089-.508-1.634l-.55-1.558c-.227-.479-.401-.97-.598-1.42-.229-.43-.424-.854-.608-1.25-.228-.36-.423-.709-.599-1.024-.166-.325-.376-.55-.517-.772-.298-.432-.467-.701-.467-.701s.27.133.739.41c.221.149.547.287.814.553.287.244.615.527.957.857.307.352.638.74.968 1.171.307.44.61.921.906 1.431.25.523.546 1.058.773 1.625.21.572.445 1.15.608 1.746.348 1.186.585 2.396.707 3.535.09.566.095 1.125.128 1.646.029.523.016 1.021.004 1.479-.057 1.832-.388 3.032-.387 3.032z" />
+                                        <path fill="#FFF"
+                                            d="M23.143 104.686h10.53s-.405 3.235-2.03 4.209c-1.625.973 5.063 2.66 3.625 8.473-1.313 5.308-4.452 15.5-4.452 15.5h-5.548s-2.887-8.715-4.25-14.75c-1.332-5.896 2.657-7.195 3.641-8.848 0 0 .611-.32.025-.75-1.104-.81-1.541-3.834-1.541-3.834z" />
+                                    </svg>
+                                </div>
                             </div>
                             <div class="mx-4">
-                                <div class="username_dashboardTop">Good Morning Sathish
-                                </div>
-                                <div class="username_dashboard_description">
-                                    Welcome 👋 Are you feeling awesome this morning? Great 💪
-                                </div>
+                                <div class="username_dashboardTop" style="font-size: xx-large;"><span
+                                        id="greeting_data"></span>
+                                    {{username}} </div>
+                                <div class="username_dashboard_description"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="secondBlock"></div>
-                </section>
-                <section class="academic_planner">
-                    <div class="d-flex">
-                        <div>Add Subjects</div>
-                        <div>Staff Subject Mapping</div>
-                        <div>Generate Timetable</div>
+                    <div class="secondBlock my-5">
+                        <div class="college_overview dashboard_title">
+                            <img class="mx-2" src="../static/images/dashboard_total/dashboard_total7.png"
+                                style="width: 50px;height: 50px;">
+                            <div>College Overview</div>
+                        </div>
+                        <div class=" d-flex justify-content-evenly">
+                            <section class="d-flex flex-column align-items-center total_parent py-3 total_students"
+                                style="background-color: #e7e7f9!important;">
+                                <img src="../static/images/dashboard_total/dashboard_total4.png"
+                                    style="width: 100px;height: 100px;">
+                                <div class="d-flex flex-column my-2 align-items-center">
+                                    <div>Rising Queens</div>
+                                    <div class="d-flex flex-column align-items-center">(Students)</div>
+                                </div>
+                                <div><span
+                                        class="d-flex flex-column align-items-center total_number">{{overview.total_student}}</span>
+                                </div>
+                                <div class="mx-2 admin_user d-none">
+                                    <div class="input-group">
+                                        <input type="text" class="student_val form-control" inputmode="numeric"
+                                            pattern="[0-9]*">
+                                        <button class="btn btn-success"
+                                            onclick="dashboard_total_func('student_val','student')">Save</button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="d-flex flex-column align-items-center total_staff py-3 total_parent"
+                                style="background-color: #f8e5e9!important;">
+                                <img src="../static/images/dashboard_total/dashboard_total5.png"
+                                    style="width: 100px;height: 100px;">
+                                <div class="d-flex flex-column my-2 align-items-center">
+                                    <div>Mentors of Excellence</div>
+                                    <div class="d-flex flex-column align-items-center">(Staffs)</div>
+                                </div>
+                                <div><span
+                                        class="d-flex flex-column align-items-center total_number">{{overview.total_staff}}</span>
+                                </div>
+                                <div class="mx-2 admin_user d-none">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control staff_val" inputmode="numeric"
+                                            pattern="[0-9]*">
+                                        <button class="btn btn-success"
+                                            onclick="dashboard_total_func('staff_val','staff')">Save</button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="d-flex flex-column align-items-center total_departments py-3 total_parent"
+                                style="background-color: #dfedf8!important;">
+                                <img src="../static/images/dashboard_total/dashboard_total2.png"
+                                    style="width: 100px;height: 100px;">
+                                <div class="d-flex flex-column my-2 align-items-center">
+                                    <div>Centers of Learning</div>
+                                    <div class="d-flex flex-column align-items-center">(Departments)</div>
+                                </div>
+                                <div><span
+                                        class="d-flex flex-column align-items-center total_number">{{overview.total_department}}</span>
+                                </div>
+                                <div class="mx-2 admin_user d-none">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control department_val" inputmode="numeric"
+                                            pattern="[0-9]*">
+                                        <button class="btn btn-success"
+                                            onclick="dashboard_total_func('department_val','department')">Save</button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="d-flex flex-column align-items-center total_courses py-3 total_parent"
+                                style="background-color: #fbecd8!important;">
+                                <img src="../static/images/dashboard_total/dashboard_total3.png"
+                                    style="width: 100px;height: 100px;">
+                                <div class="d-flex flex-column my-2 align-items-center">
+                                    <div>Paths of Excellence</div>
+                                    <div class="d-flex flex-column align-items-center">(Courses)</div>
+                                </div>
+                                <div><span
+                                        class="d-flex flex-column align-items-center total_number">{{overview.total_course}}</span>
+                                </div>
+                                <div class="mx-2 admin_user d-none">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control course_val" inputmode="numeric"
+                                            pattern="[0-9]*">
+                                        <button class="btn btn-success"
+                                            onclick="dashboard_total_func('course_val','course')">Save</button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="d-flex flex-column align-items-center placement_rate py-3 total_parent"
+                                style="background-color: #efd8fb!important">
+                                <img src="../static/images/dashboard_total/dashboard_total6.png"
+                                    style="width: 100px;height: 100px;">
+                                <div class="d-flex flex-column my-2 align-items-center">
+                                    <div>Placement Success</div>
+                                    <div class="d-flex flex-column align-items-center">Rate</div>
+                                </div>
+                                <div><span
+                                        class="d-flex flex-column align-items-center total_number">{{overview.total_placement}}
+                                        %</span>
+                                </div>
+                                <div class="mx-2 admin_user d-none">
+                                    <div class="input-group">
+                                        <input type="text" class="placement_val form-control" inputmode="numeric"
+                                            pattern="[0-9]*">
+                                        <button class="btn btn-success"
+                                            onclick="dashboard_total_func('placement_val','placement')">Save</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                     </div>
-                    <section class="Add Subjects">
-                        <h2>Add Subject</h2>
-                        <form method="post">
-
-                        Department:
-                        <select name="department" required>
-                            <option value="">Select</option>
-                            <option value="BSc IT">BSc IT</option>
-                            <option value="BSc CS">BSc CS</option>
-                            <option value="BCA">BCA</option>
-                        </select>
-
-                        Semester:
-                        <select name="semester" id="semester" required>
-                            <option value="">Select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="">6</option>
-
-                        </select>
-
-                        Subject: <input name="subject" required>
-                        Type:
-                        <select name="type">
-                            <option>theory</option>
-                            <option>lab</option>
-                        </select>
-                        Hours/Week: <input name="hours" required>
-                        <button>Add</button>
+                </section>
+                <section class="add_subjects dashboard">
+                    <div class="subject_inner">
+                        <div class="d-flex dashboard_title p-0 align-items-center" style="font-size: 25px;">
+                            <img src="../static/images/dashboard/subject_dash.png" style="width: 60px;height: 60px;">
+                            <div>Add Subject</div>
+                        </div>
+                        <form method="post" class="subject-form pt-2" onsubmit="add_subject()">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <select name="department" id="department_input" required>
+                                        <option value="">Select Department</option>
+                                        <option value="BSc IT">BSc IT</option>
+                                        <option value="BSc CS">BSc CS</option>
+                                        <option value="BCA">BCA</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Semester</label>
+                                    <select name="semester" id="semester_input" required>
+                                        <option value="">Select Semester</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Subject Name</label>
+                                    <input id="subject_input" type="text" name="subject"
+                                        placeholder="Enter Subject Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select id="type_input" name="type">
+                                        <option value="theory">Theory</option>
+                                        <option value="lab">Lab</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group full">
+                                <label>Hours Per Week</label>
+                                <input id="hours_input" type="number" name="hours" placeholder="Enter Hours" required>
+                            </div>
+                            <button type="submit" class="btn-submit my-3">Add Subject</button>
                         </form>
-                    </section>
-                    <section class="Staff Subject Mapping">
-                        <h2>Staff – Subject Mapping</h2>
-                        <form method="POST">
+                    </div>
+                </section>
+                <section class="staff_subject_mapping dashboard d-none">
+                    <div class="mapping-card admin_user d-none">
+                        <div class="d-flex  align-items-center p-0 dashboard_title" style="font-size: 25px;">
+                            <img src="../static/images/dashboard/subject_dash.png" style="width: 60px;height: 60px;">
+                            <div>Staff – Subject Mapping</div>
+                        </div>
 
-                            <label>Semester:</label>
-                            <select name="semester" id="semester" onchange="applyFilters()">
-                            <option value="">Select Semester</option>
-                            {% for sem in range(1,7) %}
-                                <option value="{{ sem }}"
-                                {% if selected_semester == sem|string %} selected {% endif %}>
-                                    {{ sem }}
-                                </option>
-                            {% endfor %}
-                            </select>
-                            <br><br>
+                        <form class="mapping-form" method="post" onsubmit="save_mapping()">
 
-                            <label>Department</label>
-                            <select name="department" id="department" onchange="applyFilters()">
-                                <option value="">Select Department</option>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Semester</label>
+                                    <select class="semester_map" name="semester" id="semester"
+                                        onchange="applyFilters()">
+                                        <option value="">Select Semester</option>
+                                        {% for sem in range(1,7) %}
+                                        <option value="{{ sem }}" {% if selected_semester==sem|string %} selected {%
+                                            endif %}>
+                                            {{ sem }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
 
-                                <option value="BCA"
-                                {% if selected_department == "BCA" %} selected {% endif %}>
-                                    BCA
-                                </option>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <select class="department_map" name="department" id="department"
+                                        onchange="applyFilters()">
+                                        <option value="">Select Department</option>
+                                        <option value="BCA" {% if selected_department=="BCA" %} selected {% endif %}>BCA
+                                        </option>
+                                        <option value="BSc IT" {% if selected_department=="BSc IT" %} selected {% endif
+                                            %}>BSc IT
+                                        </option>
+                                        <option value="BSc CS" {% if selected_department=="BSc CS" %} selected {% endif
+                                            %}>BSc CS
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
 
-                                <option value="BSc IT"
-                                {% if selected_department == "BSc IT" %} selected {% endif %}>
-                                    BSc IT
-                                </option>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Select Staff</label>
+                                    <select class="staff_map" name="staff_id" id="staff_id">
+                                        <option value="">-- Select Staff --</option>
+                                        {% for staff in staff_list %}
+                                        <option value="{{ staff.id }}" {% if selected_staff==staff.id|string %} selected
+                                            {% endif %}>
+                                            {{ staff.name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
 
-                                <option value="BSc CS"
-                                {% if selected_department == "BSc CS" %} selected {% endif %}>
-                                    BSc CS
-                                </option>
-                            </select>
-                            <br><br>
-
-
-                            <label>Select Staff:</label>
-                            <select name="staff_id" id="staff_id">
-                            <option value="">-- Select Staff --</option>
-                            {% if subject_list and subject_list|length > 0 %}
-                                {% for staff in staff_list %}
-                                    <option value="{{ staff.id }}"
-                                    {% if selected_staff == staff.id|string %} selected {% endif %}>
-                                        {{ staff.name }}
-                                    </option>
-                                {% endfor %}
-                            {% else %}
-                                <option value = "" disabled>
-                                    No staff details available for the selected filters
-                                </option>
-                            {% endif %}
-                            </select>
-
-                            <br><br>
-
-                            <label>Select Subject:</label>
-                            <select name="subject_id" id="subject_id">
-                                <option value="">-- Select Subject --</option>
-                                {% if not subject_list %}
-                                    <p style="color:red;">
-                                        No subjects found for selected Department and Semester.
-                                    </p>
-                                {% endif %}
-
-                                {% for subject in subject_list %}
-                                    <option value="{{ subject.id }}"
-                                    {% if selected_subject == subject.id|string %} selected {% endif %}>
-                                        {{ subject.subject_name }} (Sem {{ subject.semester }})
-                                    </option>
-                                {% endfor %}
-
-
-                                <!-- {% if subject_list and subject_list|length > 0 %}
-                                    {% for subject in subject_list %}
-                                        <option value="{{ subject.id }}"
-                                        {% if selected_subject == subject.id|string %} selected {% endif %}>
+                                <div class="form-group">
+                                    <label>Select Subject</label>
+                                    <select class="subject_map" name="subject_id" id="subject_id">
+                                        <option value="">-- Select Subject --</option>
+                                        {% for subject in subject_list %}
+                                        <option value="{{ subject.id }}" {% if selected_subject==subject.id|string %}
+                                            selected {% endif %}>
                                             {{ subject.subject_name }} (Sem {{ subject.semester }})
                                         </option>
-                                    {% endfor %}
-                                {% else %}
-                                    <option value="" disabled>
-                                        No subjects available for selected filters
-                                    </option>
-                            {% endif %} -->
-                            </select>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
 
-                            <br><br>
-
-                            <button type="submit">Save Mapping</button>
+                            <button type="submit" class="btn-primary">Save Mapping</button>
 
                         </form>
-                        <hr>
+                    </div>
+
+                    <!-- Existing Mappings -->
+                    <div class="table-card mt-4 d-none">
                         <h3>Existing Mappings</h3>
-                        <table border="1" cellpadding="5">
-                            <tr>
-                                <th>Staff</th>
-                                <th>Subject</th>
-                                <th>Department</th>
-                                <th>Semester</th>
-                            </tr>
-
-                            {% for map in mappings %}
-                            <tr>
-                                <td>{{ map.name }}</td>
-                                <td>{{ map.subject_name }}</td>
-                                <td>{{ map.department }}</td>
-                                <td>{{ map.semester }}</td>
-                            </tr>
-                            {% endfor %}
-
-                        </table>
-                    </section>
-                    <section class="generate timetable">
-                        
-<form method="post">
-  <br />
-  Semester:
-  <select name="semester" id="semester">
-        <option value="">Select</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-    
-    </select>
-
-   Department:
-    <select name="department" id="department">
-    <option value="">Select</option>
-    <option value="BSc IT">BSc IT</option>
-    <option value="BSc CS">BSc CS</option>
-    <option value="BCA">BCA</option>
-    </select>
-    <br><br>
-
-  <button>View Timetable</button>
-</form>
-
-<br />
-<br />
-<br />
-<br />
-<!-- 
-<div border="1" cellpadding="8">
-    {% if department %} 
-    {% endif %}
-    
-    {% if semester %}
-    {% endif %}
-</div> -->
-
-{% if searched and not grid %}
-<p>No timetable available.</p>
-{% endif %}
-
-{% if grid %}
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>DAY / TIME</th>
-            {% for t in time_map.values() %}
-                <th>{{ t }}</th>
-            {% endfor %}
-        </tr>
-
-        {% for day, periods in grid.items() %}
-        <tr>
-            <th>{{ day }}</th>
-            {% for subject in periods.values() %}
-                <td>{{ subject if subject else "-" }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
-{% endif %}
-
-<br />
-
-<br />
-<br />
-<br />
-
-
-<a href="{{ url_for('home') }}">Back to Home</a>
-<br />
-
-                    </section>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Staff</th>
+                                        <th>Subject</th>
+                                        <th>Department</th>
+                                        <th>Semester</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for map in mappings %}
+                                    <tr>
+                                        <td>{{ map.name }}</td>
+                                        <td>{{ map.subject }}</td>
+                                        <td>{{ map.department }}</td>
+                                        <td>{{ map.semester }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </section>
-                <section class="timetable_planner"></section>
-                <section class="assignments_planner"></section>
+                <section class="timetable_planner dashboard d-none">
+
+                    <!-- Filter Card -->
+                    <div class="planner-card">
+                        <div class="d-flex  align-items-center dashboard_title p-0" style="font-size: 25px;">
+                            <img src="../static/images/dashboard/timetable_dash.png" style="width:50px;height: 50px;">
+                            <div class="mx-2">Timetable Planner</div>
+                        </div>
+
+                        <form method="post" class="planner-form" >
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Semester</label>
+                                    <select class="view_tt_semester_map" name="semester" id="view_tt_semester">
+                                        <option value="">Select Semester</option>
+                                        {% for sem in range(1,7) %}
+                                        <option value="{{ sem }}" {% if selected_semester==sem|string %} selected {%
+                                            endif %}>
+                                            {{ sem }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <select class="view_tt_department_map" name="department" id="view_tt_department" required>
+                                        <option value="">Select Department</option>
+                                        <option value="bca" {% if selected_department=="BCA" %} selected {% endif %}>BCA
+                                        </option>
+                                        <option value="bsc it" {% if selected_department=="BSc IT" %} selected {% endif
+                                            %}>BSc IT
+                                        </option>
+                                        <option value="bsc cs" {% if selected_department=="BSc CS" %} selected {% endif
+                                            %}>BSc CS
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn-view" onclick="view_timetable(event)">View Timetable</button>
+                                <button type="submit" class="btn-view mx-3 admin_user d-none" onclick="generate_timetable(event)">Generate
+                                    Timetable</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <!-- Timetable Grid -->
+                    <div class="timetable-card">
+                        <table class="timetable-table">
+                            <thead class="view_tt_thead">
+
+                            </thead>
+
+                            <tbody class="view_tt_tbody">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+                <!-- <section class="assignments_planner dashboard d-none"></section> -->
+                <section class="student_planner dashboard d-none">
+                    <section class="d-flex align-items-center justify-content-between m-20px mt-0 pt-20px mb-40px"
+                        style="margin-bottom: 40px;padding-top: 20px;">
+                        <h1 class="staff_details_title">Students</h1>
+                    </section>
+                    <div class="student_details_parent staff_student"></div>
+                </section>
+                <section class="staff_planner m-3 dashboard d-none">
+                    <section class="d-flex align-items-center justify-content-between m-20px mt-0 pt-20px mb-40px"
+                        style="margin-bottom: 40px;padding-top: 20px;">
+                        <h1 class="staff_details_title">Staffs</h1>
+                    </section>
+                    <div class="staff_details_parent staff_student"></div>
+                </section>
             </section>
         </section>
     </article>
+    <!-- <a href="{{ url_for('home') }}">Back to Home</a> -->
+
 
     <script src="../static/js/dashboard.js"></script>
 </body>

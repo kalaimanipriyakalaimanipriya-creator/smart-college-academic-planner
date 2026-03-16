@@ -8,6 +8,8 @@ def mapping(app):
     @app.route('/mapping', methods=['GET', 'POST'])
     def staff_mapping():
         db = get_db()
+        data = request.get_json()
+
         selected_department = ""
         selected_semester = ""
         selected_staff = ""
@@ -18,10 +20,10 @@ def mapping(app):
             subject_list = query_db("SELECT * FROM subjects")
         
         if request.method == 'POST':
-            selected_staff      = request.form['staff_id']
-            selected_subject    = request.form['subject_id']
-            selected_department = request.form['department']
-            selected_semester   = request.form['semester']
+            selected_staff      = data.get("staff_map")
+            selected_subject    = data.get("subject_map")
+            selected_department = data.get("department_map")
+            selected_semester   = data.get("semester_map")
 
         try:
             query_db("""
@@ -29,6 +31,8 @@ def mapping(app):
                 (staff_id, subject_id)
                 VALUES (?, ?)
             """, (selected_staff, selected_subject))
+            
+            print("summa",selected_staff,selected_subject)
 
             flash("Mapping saved successfully!", "success")
             
@@ -57,7 +61,10 @@ def mapping(app):
 
 
         except sqlite3.IntegrityError:
-            flash("This mapping already exists!", "error")
+            return jsonify({
+                "success": False,
+                "message": "This mapping already exists!"
+            })
 
         staff_list = query_db("SELECT id, name FROM staff")
         subject_list = query_db("""
@@ -72,13 +79,35 @@ def mapping(app):
             JOIN subjects sub ON m.subject_id = sub.id
         """)
 
-        return render_template(
-            "staff/mapping.html",
-            staff_list          =staff_list,
-            subject_list        = subject_list,
-            selected_department = selected_department,
-            selected_semester   = selected_semester,
-            selected_staff      = selected_staff,
-            selected_subject    = selected_subject,
-            mappings            = mappings
-        )   
+        staff_list = [dict(row) for row in staff_list]
+        subject_list = [dict(row) for row in subject_list]
+        mappings = [dict(row) for row in mappings]
+
+        print('debug statements: ' , mappings)
+
+        return jsonify({
+            "success": True,
+            "message": "Mapping save successfully",
+            "data": {
+                "staff_list": staff_list,
+                "subject_list": subject_list,
+                "selected_department": selected_department,
+                "selected_semester": selected_semester,
+                "selected_staff": selected_staff,
+                "selected_subject": selected_subject,
+                "mappings": mappings
+            }
+        })
+
+        # return render_template(
+        #     "staff/mapping.html",
+        #     staff_list          =staff_list,
+        #     subject_list        = subject_list,
+        #     selected_department = selected_department,
+        #     selected_semester   = selected_semester,
+        #     selected_staff      = selected_staff,
+        #     selected_subject    = selected_subject,
+        #     mappings            = mappings
+        # )   
+        # return jsonify({"success": True,
+            # "message": "Mapping save successfully"})

@@ -1,4 +1,6 @@
-from flask import render_template, request, redirect, session, url_for, flash, jsonify
+import os
+from werkzeug.utils import secure_filename
+from flask import render_template, request, redirect, session, url_for, flash, jsonify,current_app
 from db import query_db
 from utils.security import hash_password, verify_password
 # import hash_password, verify_password from utils/security
@@ -37,18 +39,24 @@ def auth_routes(app):
         data = request.get_json()
         password = data.get("password")
         userType = data.get("userType")
+        role = data.get("role")
 
         sqlResult = None
-        if userType == 'staff':
+        if role == 'staff':
             # Ensure your frontend sends 'userName' for staff
             print('I am here at staff')
             userName = data.get("userName")
             sqlResult = query_db("SELECT * FROM staff WHERE username = ?", (userName,), one=True)
-        else:
+        elif role == 'student':
             # Ensure your frontend sends 'regNo' for students
             print('I am here at student')
             regNo = data.get("regNo")
+            print('regNo---->', regNo)
             sqlResult = query_db("SELECT * FROM student WHERE regNo = ?", (regNo,), one=True)
+        elif role == 'admin':
+            print('I am here at admin')
+            userName = data.get("userName")
+            sqlResult = query_db("SELECT * FROM admin WHERE username = ?",(userName,),one=True)
 
         print(f"Query Result: {sqlResult}")
 
@@ -65,10 +73,20 @@ def auth_routes(app):
             session["user_id"] = user_dict.get("id")
             # Store common identifier
             session["userName"] = user_dict.get("username") or user_dict.get("regNo")
+            session["userFullName"] = user_dict.get("name")
             session["userType"] = userType # Essential for access control
+            session["role"] = role
 
             # Dynamic Redirect based on userType
-            redirect_url = url_for('staff_dashboard') if userType == 'staff' else url_for('student_dashboard')
+
+            # redirect_url = url_for("dashboard")
+            # if role == 'staff':
+            redirect_url = url_for('staff_dashboard')
+            # elif role == 'student':
+            #     redirect_url = url_for('student_dashboard')
+            # elif role == 'admin':
+            #     redirect_url = url_for('admin_dashboard')
+            # redirect_url = url_for('staff_dashboard') if role == 'staff' elif role ==  url_for('student_dashboard')
             
             return jsonify({
                 "success": True,
@@ -82,81 +100,197 @@ def auth_routes(app):
         }), 401 # Return 401 Unauthorized
 
 
-    @app.route("/register", methods=["GET", "POST"])
+
+    UPLOAD_FOLDER = os.path.join("static", "uploads")
+    @app.route("/register", methods=["POST"])
     def register():
-        data = request.get_json(silent=True)
-        if not data:
-            return jsonify(success=False, message="Invalid JSON data received"), 400
 
-        result = {}
+        print("request.form--------------------------------->")
+        print(request.form)
 
-        fullName    = data.get("fullName")
+        fullName    = request.form.get("fullName")
+        hashed_password = request.form.get("password")
+        print('password------------>', hashed_password)
+
+        password = hash_password(hashed_password)
+        print('hashed_password------------>', password)
+
+        email       = request.form.get("email")
+        department  = request.form.get("department")
+        designation = request.form.get("designation")
+        regNo = request.form.get("regNo")
+        username = None
+        userType    = request.form.get("userType")   # staff OR regNo (for student)
+
+        print('userType------------------>', userType)
+
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+        image_file = request.files.get("image")
+        image_path = None
+
+        if image_file and image_file.filename != "":
+            ext = os.path.splitext(image_file.filename)[1]
+
+            if userType == "staff":
+                username    = request.form.get("userName")
+                filename = secure_filename(f"{username}{ext}")
+            else:
+                regNo = userType
+                filename = secure_filename(f"{regNo}{ext}")
+
+            save_path = os.path.join(UPLOAD_FOLDER, filename)
+            image_file.save(save_path)
+            image_path = f"uploads/{filename}"
+
+        try:
+            if userType == "staff":
+                query_db("""
+                    INSERT INTO staff
+                    (name, email, username, password, department, designation, image)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, (fullName, email, username, password, department, designation, image_path))
+
+            else:
+                regNo = userType
+
+                query_db("""
+                    INSERT INTO student
+                    (name, email, password, department, regNo, image)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, (fullName, email, password, department, regNo, image_path))
+
+            return jsonify(success=True, redirect=url_for('home'))
+
+        except Exception as e:
+            print("Error:", e)
+            return jsonify(success=False, message="Internal error"), 500
+
+
+    # @app.route("/register", methods=["GET", "POST"])
+    # def register():
+
+        fullName    = request.form.get("fullName")
+        password    = request.form.get("password")
+        email       = request.form.get("email")
+        department  = request.form.get("department")
+        username    = request.form.get("userName")
+        designation = request.form.get("designation")
+        userType    = request.form.get("userType")
+
+        image_file  = request.files.get("image")
+
+        if image_file:
+            image_data = image_file.read()   # 👈 This is BLOB data
+        else:
+            image_data = None
         
-        print('password ', data.get('password'))
-        password    = hash_password(data.get('password'))
-        
-        print('password after hashing: ', password)
-          
-        email       = data.get("email")
-        
-        department  = data.get("department")
-        username    = data.get("userName")
-        designation = data.get("designation")
-        userType    = data.get("userType")
-        
-        print(userType)
         # Check for duplicate email or username
         existing_user = query_db(
             "SELECT id FROM staff WHERE email = ? OR username = ?",
             (email, username),
             one=True
         )
-
         if existing_user:
             # flash("Email or Username already exists. Please use a different one.", "error")
             # return redirect(url_for('staff_register'))
             # Instead of flash/redirect, return JSON error to the AJAX call
             return jsonify(success=False, message="Email or Username already exists.")
-
-
         try:
-
-# check the usertype as staff or student and insert the table appropriately
+            # check the usertype as staff or student and insert the table appropriately
             if userType == 'staff':
                 query_db("""
                 INSERT INTO staff
-                (name, email, username, password, department, designation)
-                VALUES (?, ?, ?, ?, ?, ?)
-                """, (fullName, email, username, password, department, designation))
+                (name, email, username, password, department, designation,image)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, (fullName, email, username, password, department, designation, image_data))
             else:
                 query_db("""
                 INSERT INTO student
                 (name, email, username, password, department, regNo)
-                VALUES (?, ?, ?, ?, ?, ?)
-                """, (fullName, email, username, password, department, userType))
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, (fullName, email, username, password, department, userType, image_data))
 
-            # # print('prior to insert users table...................')
-            # query_db("""
-            #     INSERT INTO users
-            #     (username, password, role)
-            #     VALUES (?, ?, ?)
-            # """, (username, password, userData.userType))
-            # # print('inserted users table...................')
-
-            # # print('prior to insert staff table...................')
-            # query_db("""
-            #     INSERT INTO staff
-            #     (name, email, username, password, department, designation)
-            #     VALUES (?, ?, ?, ?, ?, ?)
-            # """, (fullName, email, username, password, department, designation))
-            # # print('inserted staff table...................')
-
-            
-            return jsonify(success=True, redirect=url_for('home'))
-
+                return jsonify(success=True, redirect=url_for('home'))
         except Exception as e:
             print(f"Error: {e}")
             return jsonify(success=False, message="An internal error occurred."), 500
+
+    # @app.route("/register", methods=["GET", "POST"])
+    # def register():
+    #     data = request.get_json(silent=True)
+    #     if not data:
+    #         return jsonify(success=False, message="Invalid JSON data received"), 400
+
+    #     result = {}
+
+    #     fullName    = data.get("fullName")
+        
+    #     print('password ', data.get('password'))
+    #     password    = hash_password(data.get('password'))
+        
+    #     print('password after hashing: ', password)
+          
+    #     email       = data.get("email")
+        
+    #     department  = data.get("department")
+    #     username    = data.get("userName")
+    #     designation = data.get("designation")
+    #     userType    = data.get("userType")
+        
+    #     print(userType)
+    #     # Check for duplicate email or username
+    #     existing_user = query_db(
+    #         "SELECT id FROM staff WHERE email = ? OR username = ?",
+    #         (email, username),
+    #         one=True
+    #     )
+
+    #     if existing_user:
+    #         # flash("Email or Username already exists. Please use a different one.", "error")
+    #         # return redirect(url_for('staff_register'))
+    #         # Instead of flash/redirect, return JSON error to the AJAX call
+    #         return jsonify(success=False, message="Email or Username already exists.")
+
+
+    #     try:
+
+    #         # check the usertype as staff or student and insert the table appropriately
+    #         if userType == 'staff':
+    #             query_db("""
+    #             INSERT INTO staff
+    #             (name, email, username, password, department, designation)
+    #             VALUES (?, ?, ?, ?, ?, ?)
+    #             """, (fullName, email, username, password, department, designation))
+    #         else:
+    #             query_db("""
+    #             INSERT INTO student
+    #             (name, email, username, password, department, regNo)
+    #             VALUES (?, ?, ?, ?, ?, ?)
+    #             """, (fullName, email, username, password, department, userType))
+
+    #         # # print('prior to insert users table...................')
+    #         # query_db("""
+    #         #     INSERT INTO users
+    #         #     (username, password, role)
+    #         #     VALUES (?, ?, ?)
+    #         # """, (username, password, userData.userType))
+    #         # # print('inserted users table...................')
+
+    #         # # print('prior to insert staff table...................')
+    #         # query_db("""
+    #         #     INSERT INTO staff
+    #         #     (name, email, username, password, department, designation)
+    #         #     VALUES (?, ?, ?, ?, ?, ?)
+    #         # """, (fullName, email, username, password, department, designation))
+    #         # # print('inserted staff table...................')
+
+            
+    #         return jsonify(success=True, redirect=url_for('home'))
+
+    #     except Exception as e:
+    #         print(f"Error: {e}")
+    #         return jsonify(success=False, message="An internal error occurred."), 500
 
     # @app.route("/academic-planner/login", methods=["GET", "POST"])
     @app.route("/login123", methods=["GET", "POST"])

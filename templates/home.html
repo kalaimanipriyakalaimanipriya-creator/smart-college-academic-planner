@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="../static/css/library/font.css">
     <link rel="stylesheet" href="../static/css/library/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/library/swiper.min.css">
+    <link rel="stylesheet" href="../static/css/library/izitoast.css">
     <link rel="stylesheet" href="../static/css/style.css">
 
     <script src="../static/js/library/bootstrap.min.js"></script>
     <script src="../static/js/library/jquery.min.js"></script>
     <script src="../static/js/library/swiper.min.js"></script>
+    <script src="../static/js/library/izitoast.js"></script>
+
 </head>
 
 <body>
@@ -426,13 +429,14 @@
                             <div class="d-flex">
                                 <section>
                                     <h3 class="register-title">Create Your Account</h3>
-                                    <form id="registerForm">
+                                    <form id="registerForm" enctype="multipart/form-data">
                                         <div class="row g-3">
 
                                             <!-- Username -->
                                             <div class="col-md-6">
                                                 <label class="form-label">Username</label>
-                                                <input type="text" class="form-control userNameRegister" placeholder="Choose a username">
+                                                <input type="text" class="form-control userNameRegister"
+                                                    placeholder="Choose a username">
                                             </div>
 
                                             <!-- Password -->
@@ -442,7 +446,7 @@
                                                     placeholder="Create a password">
                                             </div>
 
-                                            
+
                                             <!-- Full Name -->
                                             <div class="col-md-6">
                                                 <label class="form-label">Full Name</label>
@@ -453,13 +457,14 @@
                                             <!-- Email -->
                                             <div class="col-md-6">
                                                 <label class="form-label">Email Address</label>
-                                                <input type="email" class="emailRegister form-control" placeholder="Enter your email">
+                                                <input type="email" class="emailRegister form-control"
+                                                    placeholder="Enter your email">
                                             </div>
 
                                             <!-- Department -->
                                             <div class="col-md-6">
                                                 <label class="form-label">Department</label>
-                                                <select  class="departmentRegister form-select">
+                                                <select class="departmentRegister form-select">
                                                     <option selected>Select Department</option>
                                                     <option>BSC IT</option>
                                                     <option>BSC CS</option>
@@ -483,6 +488,13 @@
                                                     <option>Associate Professor</option>
                                                 </select>
                                             </div>
+
+                                            <div class="col-md-6 upload_image">
+                                                <label class="form-label">Upload Pic</label>
+                                                <input type="file" name="image" accept="image/*" required>
+                                                <!-- <button type="submit">Upload</button> -->
+                                            </div>
+
                                         </div>
                                         <button type="submit" class="my-4 login-btn">
                                             Register
@@ -503,16 +515,19 @@
                                     <form id="loginForm">
                                         <div class="input-group userNameParent">
                                             <label>User Name</label>
-                                            <input class="usernameLogin" type="text" id="loginUsername" placeholder="Enter your Username">
+                                            <input class="usernameLogin" type="text" id="loginUsername"
+                                                placeholder="Enter your Username">
                                         </div>
                                         <div class="input-group regNoParent">
                                             <label>Register Number</label>
-                                            <input class="regnoLogin" type="text" id="regnoLogin" placeholder="Enter your Register Number">
+                                            <input class="regnoLogin" type="text" id="regnoLogin"
+                                                placeholder="Enter your Register Number">
                                         </div>
 
                                         <div class="input-group">
                                             <label>Password</label>
-                                            <input class="passwordLogin" type="password" placeholder="Enter your password" required>
+                                            <input class="passwordLogin" type="password"
+                                                placeholder="Enter your password" required>
                                         </div>
 
                                         <div class="options">
